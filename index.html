@@ -3,872 +3,582 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AfriAnnotate — Africa's Data. The World's AI.</title>
-  <meta name="description" content="Enterprise AI annotation platform for African languages. 50M+ data points. 15+ languages. 99.9% accuracy.">
+  <title>AfriAnnotate — Precision Annotation for African Languages</title>
+  <meta name="description" content="Enterprise AI data annotation platform for African languages. 50M+ data points. 15+ languages. 99.9% accuracy.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230A0906'/%3E%3Cpath d='M32 6 C40 6 50 9 54 16 C58 23 56 30 54 35 C60 38 62 44 58 50 C54 56 50 60 44 62 C38 64 30 63 24 60 C18 57 13 51 11 44 C9 37 10 30 12 23 C14 16 20 10 26 7 Z' fill='%23D94B1F' opacity='0.9'/%3E%3Cpath d='M44 34 C50 31 56 36 54 44' fill='none' stroke='%23D94B1F' stroke-width='2' opacity='0.6'/%3E%3Cline x1='42' y1='42' x2='54' y2='30' stroke='%23E8A232' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpolygon points='54,28 58,32 56,34 52,30' fill='%23E8A232'/%3E%3Cpolygon points='40,43 44,47 42,48 39,45' fill='%23F7F0E6'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23C8401C'/%3E%3Cpath d='M32 8C40 8 50 12 54 19C58 26 56 33 54 38C60 41 62 48 58 54C54 60 48 63 42 64C36 65 28 63 22 59C15 55 11 48 10 41C9 34 11 27 13 20C16 13 22 8 28 9Z' fill='white' opacity='0.92'/%3E%3Cline x1='40' y1='44' x2='54' y2='30' stroke='%23E8A232' stroke-width='3' stroke-linecap='round'/%3E%3Cpolygon points='54,27 59,32 56,35 51,30' fill='%23E8A232'/%3E%3Cpolygon points='38,45 43,50 40,52 37,48' fill='%23C8401C'/%3E%3C/svg%3E">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:          #FFFFFF;
-      --bg-2:        #F7F8FA;
-      --bg-3:        #EFF0F2;
-      --terra:       #C4391A;
-      --terra-dk:    #9A2D13;
-      --gold:        #B87318;
-      --gold-lt:     #D4901F;
-      --green:       #1E5236;
-      --cream:       #FFFFFF;
-      --ink:         #0D1117;
-      --muted:       rgba(13,17,23,0.5);
-      --border:      rgba(13,17,23,0.09);
+      --bg:       #FFFFFF;
+      --bg-alt:   #F8FAFC;
+      --dark:     #0F172A;
+      --dark2:    #1E293B;
+      --terra:    #C8401C;
+      --terra-dk: #9E3214;
+      --terra-lt: rgba(200,64,28,0.08);
+      --amber:    #B45309;
+      --green:    #065F46;
+      --gray:     rgba(15,23,42,0.55);
+      --border:   rgba(15,23,42,0.1);
+      --shadow:   0 1px 3px rgba(15,23,42,0.08), 0 4px 16px rgba(15,23,42,0.06);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
-      color: var(--ink);
-      font-family: 'Outfit', sans-serif;
+      color: var(--dark);
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.65;
       overflow-x: hidden;
     }
 
-    /* ── KENTE STRIP ─────────────────────── */
-    .kente {
-      height: 5px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--gold)   0px,  var(--gold)   10px,
-        var(--terra)  10px, var(--terra)   20px,
-        var(--green)  20px, var(--green)   30px,
-        var(--bg)     30px, var(--bg)      40px,
-        var(--gold)   40px, var(--gold)    45px,
-        var(--bg)     45px, var(--bg)      55px
-      );
-    }
-
-    .kente-top {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 300;
-    }
-
-    /* ── NAV ─────────────────────────────── */
+    /* NAV */
     nav {
       position: fixed;
-      top: 5px; left: 0; right: 0;
-      z-index: 200;
+      inset: 0 0 auto;
+      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.1rem 3rem;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: rgba(253,250,246,0.92);
-      box-shadow: 0 1px 0 var(--border);
+      padding: 0 3rem;
+      height: 68px;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      transition: padding 0.3s;
+      transition: box-shadow 0.3s;
     }
 
     .logo {
-      font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: 1.35rem;
-      color: var(--ink);
+      font-size: 1.3rem;
+      color: var(--dark);
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
-    .logo em { color: var(--terra); font-style: normal; }
+    .logo span { color: var(--terra); }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2.5rem;
+      gap: 2.2rem;
       list-style: none;
     }
     .nav-links a {
-      color: var(--muted);
+      color: var(--gray);
       text-decoration: none;
-      font-size: 0.82rem;
+      font-size: 0.875rem;
       font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--ink); }
-    .nav-demo {
-      background: var(--terra);
-      color: var(--cream) !important;
-      padding: 0.45rem 1.15rem;
-      border-radius: 4px;
+    .nav-links a:hover { color: var(--dark); }
+    .nav-cta {
+      background: var(--terra) !important;
+      color: #fff !important;
+      padding: 0.48rem 1.15rem;
+      border-radius: 6px;
+      font-weight: 600 !important;
       transition: background 0.2s !important;
     }
-    .nav-demo:hover { background: var(--terra-dk) !important; }
+    .nav-cta:hover { background: var(--terra-dk) !important; }
 
-    /* ── HERO ────────────────────────────── */
+    /* HERO */
     #hero {
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 9rem 3rem 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-glow {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 80% 15%, rgba(196,57,26,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 50% at 5% 85%,  rgba(30,82,54,0.07)  0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .hero-geo {
-      position: absolute;
-      right: -2%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: min(48vw, 620px);
-      height: min(48vw, 620px);
-      opacity: 0;
-      animation: fadeIn 1.4s 0.7s forwards;
-      pointer-events: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 7rem 3rem 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      background: rgba(196,57,26,0.07);
-      border: 1px solid rgba(196,57,26,0.22);
+      gap: 0.5rem;
+      background: var(--terra-lt);
       color: var(--terra);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      padding: 0.38rem 1rem;
+      padding: 0.32rem 0.85rem;
       border-radius: 100px;
-      margin-bottom: 2.5rem;
-      position: relative;
-      z-index: 1;
-      width: fit-content;
-      opacity: 0;
-      transform: translateY(18px);
-      animation: fadeUp 0.7s 0.2s forwards;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(200,64,28,0.18);
     }
-    .badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--terra);
-      animation: pulse 2s infinite;
-      flex-shrink: 0;
-    }
+    .badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); animation: pulse 2s infinite; }
 
-    .hero-hl {
-      font-family: 'Syne', sans-serif;
+    .hero-h {
       font-weight: 800;
-      font-size: clamp(3.8rem, 9vw, 9rem);
-      line-height: 0.93;
+      font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+      line-height: 1.13;
       letter-spacing: -0.025em;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
+      color: var(--dark);
+      margin-bottom: 1.2rem;
+    }
+    .hero-h .ac { color: var(--terra); }
+
+    .hero-p {
+      font-size: 1.05rem;
+      color: var(--gray);
+      line-height: 1.78;
       margin-bottom: 2rem;
-    }
-    .hero-hl .line { display: block; overflow: hidden; }
-    .hero-hl .li {
-      display: block;
-      opacity: 0;
-      transform: translateY(105%);
-      animation: lineUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
-    }
-    .hero-hl .line:nth-child(1) .li { animation-delay: 0.38s; }
-    .hero-hl .line:nth-child(2) .li { animation-delay: 0.52s; color: var(--terra); }
-    .hero-hl .line:nth-child(3) .li { animation-delay: 0.66s; }
-
-    .hero-sub {
-      font-size: clamp(1rem, 1.7vw, 1.2rem);
-      color: var(--muted);
-      max-width: 520px;
-      font-weight: 300;
-      line-height: 1.8;
-      position: relative;
-      z-index: 1;
-      margin-bottom: 2.8rem;
-      opacity: 0;
-      transform: translateY(18px);
-      animation: fadeUp 0.8s 0.88s forwards;
+      max-width: 440px;
     }
 
-    .hero-btns {
-      display: flex;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-      opacity: 0;
-      transform: translateY(18px);
-      animation: fadeUp 0.8s 1.05s forwards;
-    }
+    .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem; left: 3rem;
+    /* Hero right: UI preview card */
+    .hero-right {
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      z-index: 1;
-      opacity: 0;
-      animation: fadeUp 0.8s 1.4s forwards;
-    }
-    .scroll-line {
-      width: 36px; height: 1px;
-      background: rgba(13,17,23,0.15);
-      position: relative;
-      overflow: hidden;
-    }
-    .scroll-line::after {
-      content: '';
-      position: absolute;
-      left: -100%; top: 0;
-      width: 100%; height: 100%;
-      background: var(--gold-lt);
-      animation: scanLine 2.2s 1.8s infinite;
+      justify-content: center;
     }
 
-    /* ── BUTTONS ─────────────────────────── */
+    .preview-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.1), 0 1px 4px rgba(15,23,42,0.06);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .pc-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 0.85rem;
+    }
+
+    .pc-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .chip {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.28rem 0.7rem;
+      border-radius: 100px;
+    }
+    .chip-r { background: var(--terra-lt); color: var(--terra); }
+    .chip-g { background: rgba(6,95,70,0.08); color: var(--green); }
+    .chip-a { background: rgba(180,83,9,0.1); color: var(--amber); }
+
+    .pc-divider { height: 1px; background: var(--border); margin-bottom: 1.1rem; }
+
+    .pc-stats {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 0.75rem;
+    }
+    .pc-stat {
+      background: var(--bg-alt);
+      border-radius: 8px;
+      padding: 0.8rem 0.6rem;
+      text-align: center;
+    }
+    .pc-stat-n {
+      display: block;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--terra);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+    .pc-stat-l { font-size: 0.68rem; color: var(--gray); font-weight: 500; }
+
+    /* BUTTONS */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      font-family: 'Outfit', sans-serif;
-      font-size: 0.92rem;
+      gap: 0.4rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-weight: 600;
-      padding: 0.85rem 1.9rem;
-      border-radius: 5px;
+      font-size: 0.9rem;
+      padding: 0.72rem 1.5rem;
+      border-radius: 7px;
       text-decoration: none;
-      transition: all 0.22s;
+      transition: all 0.2s;
       border: none;
       cursor: pointer;
-      letter-spacing: 0.01em;
     }
-    .btn-fill {
-      background: var(--terra);
-      color: var(--cream);
-    }
-    .btn-fill:hover {
-      background: var(--terra-dk);
-      transform: translateY(-2px);
-      box-shadow: 0 14px 36px rgba(217,75,31,0.32);
-    }
-    .btn-outline {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover {
-      border-color: rgba(26,22,20,0.25);
-      background: rgba(26,22,20,0.04);
-    }
+    .btn-primary { background: var(--terra); color: #fff; }
+    .btn-primary:hover { background: var(--terra-dk); box-shadow: 0 6px 20px rgba(200,64,28,0.28); transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--dark); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: rgba(15,23,42,0.22); background: var(--bg-alt); }
+    .btn-ghost-lt { background: transparent; color: rgba(248,250,252,0.85); border: 1.5px solid rgba(255,255,255,0.15); }
+    .btn-ghost-lt:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.06); color: #fff; }
 
-    /* ── TICKER ──────────────────────────── */
-    .ticker-wrap {
-      padding: 1.1rem 0;
-      background: var(--bg-3);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-    }
-    .ticker-track {
-      display: flex;
-      white-space: nowrap;
-      animation: ticker 35s linear infinite;
-    }
-    .t-item {
+    .arr { width: 14px; height: 14px; stroke: currentColor; fill: none; flex-shrink: 0; }
+
+    /* TICKER */
+    .ticker { background: var(--dark); padding: 0.8rem 0; overflow: hidden; }
+    .ticker-track { display: flex; white-space: nowrap; animation: scroll 32s linear infinite; }
+    .ti {
       display: inline-flex;
       align-items: center;
-      gap: 1.4rem;
-      padding: 0 2rem;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.78rem;
+      gap: 1.2rem;
+      padding: 0 1.8rem;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: rgba(255,255,255,0.38);
       flex-shrink: 0;
     }
-    .t-item.hi { color: var(--gold); }
-    .t-dot {
-      width: 4px; height: 4px;
-      border-radius: 50%;
-      background: var(--terra);
-      flex-shrink: 0;
-    }
+    .ti.hi { color: rgba(255,255,255,0.82); }
+    .ti-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--terra); flex-shrink: 0; }
 
-    /* ── SECTIONS ────────────────────────── */
-    section { padding: 7rem 3rem; }
-
+    /* SECTION COMMONS */
+    .sec { padding: 6rem 3rem; }
     .wrap { max-width: 1160px; margin: 0 auto; }
 
-    .label {
+    .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.7rem;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.68rem;
+      gap: 0.55rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--terra);
-      margin-bottom: 1.4rem;
+      margin-bottom: 0.9rem;
     }
-    .label::after {
-      content: '';
-      display: block;
-      width: 28px; height: 1px;
-      background: var(--terra);
-    }
+    .eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--terra); border-radius: 2px; }
 
-    .h2 {
-      font-family: 'Syne', sans-serif;
+    .sh {
       font-weight: 800;
-      font-size: clamp(2rem, 4.2vw, 3.3rem);
-      line-height: 1.06;
-      letter-spacing: -0.022em;
+      font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+      line-height: 1.13;
+      letter-spacing: -0.02em;
     }
+    .sh .ac { color: var(--terra); }
 
-    /* ── ABOUT ───────────────────────────── */
-    #about { background: #FFFFFF; }
+    /* ABOUT */
+    #about { background: var(--bg-alt); }
 
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6rem;
+      gap: 5rem;
       align-items: center;
     }
 
-    .about-left { position: relative; padding-left: 2.2rem; }
+    .about-left .sh { margin-bottom: 1.4rem; }
+    .about-left p { color: var(--gray); font-size: 0.97rem; line-height: 1.82; margin-bottom: 1rem; }
 
-    .about-accent {
-      position: absolute;
-      left: 0; top: 4px; bottom: 4px;
-      width: 5px;
-      background: repeating-linear-gradient(
-        180deg,
-        var(--gold)   0px,  var(--gold)   12px,
-        var(--terra)  12px, var(--terra)   24px,
-        var(--green)  24px, var(--green)   36px,
-        transparent   36px, transparent   48px
-      );
-      border-radius: 2px;
-    }
-
-    .about-quote {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.22;
-    }
-    .about-quote .a { color: var(--terra); }
-
-    .about-right p {
-      color: rgba(13,17,23,0.65);
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.85;
-      margin-bottom: 1.4rem;
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
+    .about-feats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
       margin-top: 1.8rem;
     }
-    .tag {
-      background: rgba(13,17,23,0.04);
+    .feat {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--dark2);
+    }
+    .fdot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); flex-shrink: 0; }
+
+    .about-card {
+      background: #fff;
       border: 1px solid var(--border);
-      color: rgba(13,17,23,0.6);
-      font-size: 0.78rem;
-      font-weight: 400;
-      padding: 0.32rem 0.85rem;
-      border-radius: 100px;
+      border-radius: 14px;
+      padding: 2.2rem 2.5rem;
+      box-shadow: var(--shadow);
+    }
+    .about-q {
+      font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--dark);
+      margin-bottom: 1.4rem;
+    }
+    .about-q .ac { color: var(--terra); }
+
+    .stripe {
+      height: 4px;
+      border-radius: 3px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--terra) 0, var(--terra) 26px,
+        #D97706 26px, #D97706 52px,
+        var(--green) 52px, var(--green) 78px,
+        transparent 78px, transparent 96px
+      );
     }
 
-    /* ── SERVICES ────────────────────────── */
-    #services { background: var(--bg-2); }
+    /* SERVICES */
+    #services { background: var(--bg); }
 
-    .svc-head {
+    .svc-top {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      margin-bottom: 3.5rem;
+      margin-bottom: 2.5rem;
     }
 
     .svc-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.4rem;
+      gap: 1.2rem;
     }
 
     .svc-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(26,22,20,0.07);
-      border-radius: 10px;
-      padding: 2.4rem;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(26,22,20,0.06);
-      transition: transform 0.28s, box-shadow 0.28s, border-color 0.28s;
-    }
-    .svc-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--c, var(--terra));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: transform 0.24s, box-shadow 0.24s, border-color 0.24s;
     }
     .svc-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 16px 48px rgba(26,22,20,0.1);
-      border-color: rgba(26,22,20,0.18);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(15,23,42,0.09);
+      border-color: rgba(200,64,28,0.18);
     }
-    .svc-card:hover::before { transform: scaleX(1); }
-    .svc-card:nth-child(1) { --c: var(--terra); }
-    .svc-card:nth-child(2) { --c: var(--gold);  }
-    .svc-card:nth-child(3) { --c: #3a8a63;       }
 
     .svc-icon {
-      width: 50px; height: 50px;
+      width: 46px; height: 46px;
       border-radius: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      margin-bottom: 1.4rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 1.1rem;
     }
-    .svc-card:nth-child(1) .svc-icon { background: rgba(217,75,31,0.1);  }
-    .svc-card:nth-child(2) .svc-icon { background: rgba(232,162,50,0.1); }
-    .svc-card:nth-child(3) .svc-icon { background: rgba(42,99,71,0.18);  }
+    .i1 { background: rgba(200,64,28,0.1); }
+    .i2 { background: rgba(180,83,9,0.1); }
+    .i3 { background: rgba(6,95,70,0.1); }
 
-    .svc-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 0.65rem;
-    }
-    .svc-desc {
-      color: rgba(13,17,23,0.6);
-      font-size: 0.92rem;
-      font-weight: 300;
-      line-height: 1.75;
-    }
+    .svc-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.45rem; color: var(--dark); }
+    .svc-desc { font-size: 0.875rem; color: var(--gray); line-height: 1.72; }
 
-    /* ── STATS ───────────────────────────── */
-    #stats {
-      background: #1A1614;
-    }
+    /* STATS */
+    #stats { background: var(--dark); }
 
-    .stats-top {
-      text-align: center;
-      margin-bottom: 3.5rem;
-    }
-    .stats-top .label {
-      justify-content: center;
-      color: var(--terra);
-    }
-    .stats-top .label::before {
-      content: '';
-      display: block;
-      width: 28px; height: 1px;
-      background: var(--terra);
-    }
-    .stats-top .h2 { color: #F7F0E6; }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4,1fr);
-      gap: 1px;
-      background: rgba(247,240,230,0.08);
-      border: 1px solid rgba(247,240,230,0.08);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .stat {
-      background: rgba(255,255,255,0.04);
-      padding: 3rem 2rem;
-      text-align: center;
-      transition: background 0.22s;
-    }
-    .stat:hover { background: rgba(255,255,255,0.08); }
-
-    .stat-n {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2.4rem, 4vw, 4rem);
-      font-weight: 800;
-      color: #E8A232;
-      line-height: 1;
-      display: block;
-      margin-bottom: 0.45rem;
-    }
-    .stat-l {
-      font-size: 0.82rem;
-      color: rgba(247,240,230,0.55);
-      font-weight: 400;
-      letter-spacing: 0.02em;
-    }
-
-    /* ── LANGUAGES ───────────────────────── */
-    #languages { background: #FFFFFF; }
-
-    .lang-layout {
+    .stats-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
+      align-items: center;
+    }
+
+    .stats-left .sh { color: #F8FAFC; margin-bottom: 1rem; }
+    .stats-left p { color: rgba(248,250,252,0.58); font-size: 0.97rem; line-height: 1.78; margin-bottom: 2rem; }
+    .stats-eyebrow { color: #E8A232 !important; }
+    .stats-eyebrow::before { background: #E8A232 !important; }
+
+    .sg {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .s-cell {
+      background: rgba(255,255,255,0.04);
+      padding: 2.4rem 1.5rem;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .s-cell:hover { background: rgba(255,255,255,0.08); }
+    .s-n {
+      display: block;
+      font-weight: 800;
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--terra);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .s-l { font-size: 0.78rem; color: rgba(255,255,255,0.48); font-weight: 400; }
+
+    /* LANGUAGES */
+    #languages { background: var(--bg-alt); }
+
+    .lang-layout {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      gap: 5rem;
       align-items: start;
     }
+    .lang-left .sh { margin-bottom: 1rem; }
+    .lang-left p { color: var(--gray); font-size: 0.97rem; line-height: 1.78; }
 
-    .lang-right p {
-      color: var(--muted);
-      font-size: 0.97rem;
-      font-weight: 300;
-      line-height: 1.8;
-      margin-bottom: 1.8rem;
-    }
+    .lang-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
-    .lang-cloud {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-    .pill {
-      border: 1px solid rgba(13,17,23,0.12);
-      background: rgba(13,17,23,0.03);
-      color: rgba(13,17,23,0.65);
+    .lpill {
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--dark2);
       font-size: 0.82rem;
+      font-weight: 500;
       padding: 0.38rem 0.95rem;
       border-radius: 100px;
-      font-weight: 400;
-      transition: all 0.2s;
+      transition: all 0.18s;
       cursor: default;
     }
-    .pill:hover {
-      background: rgba(196,57,26,0.08);
-      border-color: rgba(196,57,26,0.3);
-      color: var(--terra);
-    }
-    .pill.ft {
-      background: rgba(184,115,24,0.1);
-      border-color: rgba(184,115,24,0.3);
-      color: #7A4D0E;
-      font-weight: 500;
-    }
-    .pill.more {
-      border-style: dashed;
-      opacity: 0.45;
-    }
+    .lpill:hover { border-color: var(--terra); color: var(--terra); background: var(--terra-lt); }
+    .lpill.ft { background: var(--terra-lt); border-color: rgba(200,64,28,0.22); color: var(--terra); font-weight: 600; }
+    .lpill.more { border-style: dashed; opacity: 0.45; }
 
-    /* ── CTA ─────────────────────────────── */
-    #cta {
-      background: var(--bg-2);
-      text-align: center;
-    }
-    .cta-inner { max-width: 660px; margin: 0 auto; }
-    .cta-inner .label {
-      justify-content: center;
-    }
-    .cta-inner .label::before {
-      content: '';
-      display: block;
-      width: 28px; height: 1px;
-      background: var(--terra);
-    }
+    /* CTA */
+    #cta { background: var(--dark); text-align: center; }
+    .cta-inner { max-width: 600px; margin: 0 auto; }
+    .cta-eyebrow { color: var(--terra) !important; justify-content: center; }
+    .cta-eyebrow::before { background: var(--terra) !important; }
+    .cta-h { font-weight: 800; font-size: clamp(1.9rem, 3.5vw, 3rem); line-height: 1.13; letter-spacing: -0.02em; color: #F8FAFC; margin-bottom: 1rem; }
+    .cta-h .ac { color: var(--terra); }
+    .cta-p { color: rgba(248,250,252,0.58); font-size: 0.97rem; line-height: 1.78; margin-bottom: 2rem; }
+    .cta-btns { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .cta-note { font-size: 0.82rem; color: rgba(248,250,252,0.38); }
+    .cta-note a { color: rgba(248,250,252,0.65); text-decoration: none; }
+    .cta-note a:hover { color: #fff; }
 
-    .cta-h {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-      line-height: 1.06;
-      letter-spacing: -0.022em;
-      margin-bottom: 1.2rem;
-    }
-    .cta-h .a { color: var(--terra); }
-
-    .cta-p {
-      color: var(--muted);
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.78;
-      margin-bottom: 2.2rem;
-    }
-
-    .cta-btns {
-      display: flex;
-      justify-content: center;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-
-    .cta-note {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-    .cta-note a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-    .cta-note a:hover { text-decoration: underline; }
-
-    /* ── FOOTER ──────────────────────────── */
+    /* FOOTER */
     footer {
-      background: var(--bg);
-      border-top: 1px solid var(--border);
-      padding: 2.2rem 3rem;
+      background: var(--dark);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 2rem 3rem;
     }
-    .foot-inner {
+    .foot {
       max-width: 1160px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 1.2rem;
+      gap: 1rem;
     }
-    .foot-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      color: var(--cream);
-      text-decoration: none;
-    }
-    .foot-logo em { color: var(--terra); font-style: normal; }
-    .foot-logo { color: var(--ink) !important; }
-    .foot-logo em { color: var(--terra); font-style: normal; }
-    .foot-copy { font-size: 0.8rem; color: rgba(26,22,20,0.35); }
-    .foot-links {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
-    }
-    .foot-links a {
-      color: rgba(26,22,20,0.4);
-      text-decoration: none;
-      font-size: 0.82rem;
-      transition: color 0.2s;
-    }
-    .foot-links a:hover { color: var(--ink); }
+    .foot-logo { font-weight: 800; font-size: 1.05rem; color: #F8FAFC; text-decoration: none; }
+    .foot-logo span { color: var(--terra); }
+    .foot-copy { font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+    .foot-links { display: flex; gap: 1.5rem; list-style: none; }
+    .foot-links a { color: rgba(255,255,255,0.38); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .foot-links a:hover { color: rgba(255,255,255,0.8); }
 
-    /* ── ANIMATIONS ──────────────────────── */
-    @keyframes fadeUp  { to { opacity:1; transform:translateY(0); } }
-    @keyframes fadeIn  { to { opacity:1; } }
-    @keyframes lineUp  { to { opacity:1; transform:translateY(0); } }
-    @keyframes pulse   { 0%,100% { opacity:1; } 50% { opacity:0.25; } }
-    @keyframes scanLine { to { left:100%; } }
-    @keyframes ticker  {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.vis { opacity: 1; transform: none; }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.vis { opacity: 1; transform: translateY(0); }
+    /* KEYFRAMES */
+    @keyframes pulse   { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    @keyframes scroll  { to { transform: translateX(-50%); } }
 
-    /* ── ARROW SVG ───────────────────────── */
-    .arrow {
-      width: 15px; height: 15px;
-      stroke: currentColor;
-      fill: none;
-      flex-shrink: 0;
-    }
-
-    /* ── MOBILE ──────────────────────────── */
-    @media (max-width: 860px) {
-      nav { padding: 1rem 1.4rem; }
+    /* MOBILE */
+    @media (max-width: 880px) {
+      nav { padding: 0 1.4rem; }
       .nav-links { display: none; }
-      section { padding: 5rem 1.4rem; }
-      #hero { padding: 8rem 1.4rem 4rem; }
-      .hero-geo { opacity: 0.07; right: -10%; }
-      .about-grid,
-      .lang-layout { grid-template-columns: 1fr; gap: 3rem; }
+      #hero { grid-template-columns: 1fr; padding: 7rem 1.4rem 3rem; gap: 2.5rem; }
+      .hero-right { display: none; }
+      .sec { padding: 4rem 1.4rem; }
+      .about-grid, .stats-layout, .lang-layout { grid-template-columns: 1fr; gap: 2.5rem; }
       .svc-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: repeat(2,1fr); }
-      .svc-head { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
-      footer { padding: 2rem 1.4rem; }
-      .foot-inner { flex-direction: column; align-items: flex-start; }
+      .about-feats { grid-template-columns: 1fr; }
+      .svc-top { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+      footer { padding: 1.5rem 1.4rem; }
+      .foot { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Fixed kente stripe at top -->
-  <div class="kente kente-top"></div>
-
   <!-- NAV -->
   <nav id="nav">
-    <a href="#" class="logo">
-      <svg width="28" height="28" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
-        <path d="M32 4 C40 4 50 8 54 15 C58 22 56 29 54 34 C60 37 62 44 58 50 C54 57 48 61 42 63 C36 65 28 63 22 59 C15 55 11 48 10 41 C9 34 11 27 13 21 C16 14 22 8 28 6 Z" fill="%23D94B1F" opacity="0.92"/>
-        <line x1="40" y1="44" x2="54" y2="30" stroke="%23E8A232" stroke-width="3" stroke-linecap="round"/>
-        <polygon points="54,27 59,32 56,35 51,30" fill="%23E8A232"/>
-        <polygon points="38,45 43,50 40,52 37,48" fill="%23F7F0E6"/>
-      </svg>
-      Afri<em>Annotate</em>
-    </a>
+    <a href="#" class="logo">Afri<span>Annotate</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#languages">Languages</a></li>
-      <li><a href="mailto:contact@afriannotate.com" class="nav-demo">Book a Demo</a></li>
+      <li><a href="mailto:contact@afriannotate.com" class="nav-cta">Book a Demo</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
-    <div class="hero-glow"></div>
-
-    <!-- Geometric SVG decoration -->
-    <div class="hero-geo" aria-hidden="true">
-      <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-        <circle cx="260" cy="260" r="230" stroke="rgba(232,162,50,0.07)" stroke-width="1"/>
-        <circle cx="260" cy="260" r="190" stroke="rgba(217,75,31,0.055)" stroke-width="1"/>
-        <circle cx="260" cy="260" r="150" stroke="rgba(42,99,71,0.07)" stroke-width="1"/>
-        <circle cx="260" cy="260" r="110" stroke="rgba(232,162,50,0.05)" stroke-width="1"/>
-        <path d="M260 30 L490 260 L260 490 L30 260 Z" stroke="rgba(232,162,50,0.09)" stroke-width="1" fill="none"/>
-        <path d="M260 80 L440 260 L260 440 L80 260 Z" stroke="rgba(217,75,31,0.07)" stroke-width="1" fill="none"/>
-        <path d="M260 130 L390 260 L260 390 L130 260 Z" stroke="rgba(42,99,71,0.1)" stroke-width="1" fill="none"/>
-        <line x1="30" y1="260" x2="490" y2="260" stroke="rgba(232,162,50,0.045)" stroke-width="1"/>
-        <line x1="260" y1="30" x2="260" y2="490" stroke="rgba(232,162,50,0.045)" stroke-width="1"/>
-        <line x1="107" y1="107" x2="413" y2="413" stroke="rgba(217,75,31,0.045)" stroke-width="1"/>
-        <line x1="413" y1="107" x2="107" y2="413" stroke="rgba(217,75,31,0.045)" stroke-width="1"/>
-        <circle cx="260" cy="30"  r="3.5" fill="rgba(232,162,50,0.35)"/>
-        <circle cx="490" cy="260" r="3.5" fill="rgba(217,75,31,0.35)"/>
-        <circle cx="260" cy="490" r="3.5" fill="rgba(42,99,71,0.45)"/>
-        <circle cx="30"  cy="260" r="3.5" fill="rgba(232,162,50,0.35)"/>
-        <circle cx="260" cy="260" r="7"   fill="rgba(217,75,31,0.45)"/>
-        <!-- Small decorative squares at midpoints -->
-        <rect x="253" y="75" width="14" height="14" transform="rotate(45 260 82)" stroke="rgba(232,162,50,0.2)" fill="none" stroke-width="1"/>
-        <rect x="253" y="427" width="14" height="14" transform="rotate(45 260 434)" stroke="rgba(42,99,71,0.25)" fill="none" stroke-width="1"/>
-        <rect x="427" y="253" width="14" height="14" transform="rotate(45 434 260)" stroke="rgba(217,75,31,0.2)" fill="none" stroke-width="1"/>
-        <rect x="79" y="253" width="14" height="14" transform="rotate(45 86 260)" stroke="rgba(232,162,50,0.2)" fill="none" stroke-width="1"/>
-      </svg>
+    <div>
+      <div class="hero-badge"><span class="badge-dot"></span> Africa's Language AI Company</div>
+      <h1 class="hero-h">Precision annotation for <span class="ac">Africa's languages</span></h1>
+      <p class="hero-p">AfriAnnotate delivers enterprise-grade labeled data for African language AI — combining native-speaker expertise with AI-powered workflows at scale.</p>
+      <div class="hero-btns">
+        <a href="mailto:contact@afriannotate.com" class="btn btn-primary">
+          Book a Demo
+          <svg class="arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#about" class="btn btn-ghost">Learn More</a>
+      </div>
     </div>
-
-    <div class="hero-badge">
-      <span class="badge-dot"></span>
-      Africa's Language AI Company
-    </div>
-
-    <h1 class="hero-hl">
-      <span class="line"><span class="li">Africa's Data.</span></span>
-      <span class="line"><span class="li">The World's</span></span>
-      <span class="line"><span class="li">AI.</span></span>
-    </h1>
-
-    <p class="hero-sub">
-      AfriAnnotate is the enterprise annotation platform built for African languages —
-      precision data labeling at scale, powering the next generation of AI systems.
-    </p>
-
-    <div class="hero-btns">
-      <a href="mailto:contact@afriannotate.com" class="btn btn-fill">
-        Book a Demo
-        <svg class="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-      <a href="#about" class="btn btn-outline">Learn More</a>
-    </div>
-
-    <div class="hero-scroll">
-      <div class="scroll-line"></div>
-      Scroll to explore
+    <div class="hero-right">
+      <div class="preview-card">
+        <div class="pc-label">Supported Languages</div>
+        <div class="pc-chips">
+          <span class="chip chip-r">Hausa</span>
+          <span class="chip chip-g">Swahili</span>
+          <span class="chip chip-a">Amharic</span>
+          <span class="chip chip-r">Yoruba</span>
+          <span class="chip chip-g">Igbo</span>
+          <span class="chip chip-a">Twi</span>
+          <span class="chip chip-r">Wolof</span>
+          <span class="chip chip-g">Zulu</span>
+          <span class="chip chip-a">Somali</span>
+          <span class="chip chip-r">+ 8 more</span>
+        </div>
+        <div class="pc-divider"></div>
+        <div class="pc-stats">
+          <div class="pc-stat"><span class="pc-stat-n">50M+</span><span class="pc-stat-l">Data points</span></div>
+          <div class="pc-stat"><span class="pc-stat-n">15+</span><span class="pc-stat-l">Languages</span></div>
+          <div class="pc-stat"><span class="pc-stat-n">99.9%</span><span class="pc-stat-l">Accuracy</span></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- LANGUAGE TICKER -->
-  <div class="ticker-wrap" aria-hidden="true">
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span class="t-item hi">Hausa<span class="t-dot"></span></span>
-      <span class="t-item">Yoruba<span class="t-dot"></span></span>
-      <span class="t-item">Amharic<span class="t-dot"></span></span>
-      <span class="t-item hi">Swahili<span class="t-dot"></span></span>
-      <span class="t-item">Igbo<span class="t-dot"></span></span>
-      <span class="t-item">Zulu<span class="t-dot"></span></span>
-      <span class="t-item hi">Twi<span class="t-dot"></span></span>
-      <span class="t-item">Wolof<span class="t-dot"></span></span>
-      <span class="t-item">Somali<span class="t-dot"></span></span>
-      <span class="t-item hi">Tigrinya<span class="t-dot"></span></span>
-      <span class="t-item">Shona<span class="t-dot"></span></span>
-      <span class="t-item hi">Kinyarwanda<span class="t-dot"></span></span>
-      <span class="t-item">Fula<span class="t-dot"></span></span>
-      <span class="t-item">Oromo<span class="t-dot"></span></span>
-      <span class="t-item hi">Lingala<span class="t-dot"></span></span>
-      <!-- duplicate for seamless loop -->
-      <span class="t-item hi">Hausa<span class="t-dot"></span></span>
-      <span class="t-item">Yoruba<span class="t-dot"></span></span>
-      <span class="t-item">Amharic<span class="t-dot"></span></span>
-      <span class="t-item hi">Swahili<span class="t-dot"></span></span>
-      <span class="t-item">Igbo<span class="t-dot"></span></span>
-      <span class="t-item">Zulu<span class="t-dot"></span></span>
-      <span class="t-item hi">Twi<span class="t-dot"></span></span>
-      <span class="t-item">Wolof<span class="t-dot"></span></span>
-      <span class="t-item">Somali<span class="t-dot"></span></span>
-      <span class="t-item hi">Tigrinya<span class="t-dot"></span></span>
-      <span class="t-item">Shona<span class="t-dot"></span></span>
-      <span class="t-item hi">Kinyarwanda<span class="t-dot"></span></span>
-      <span class="t-item">Fula<span class="t-dot"></span></span>
-      <span class="t-item">Oromo<span class="t-dot"></span></span>
-      <span class="t-item hi">Lingala<span class="t-dot"></span></span>
+      <span class="ti hi">Hausa<span class="ti-dot"></span></span><span class="ti">Yoruba<span class="ti-dot"></span></span><span class="ti">Amharic<span class="ti-dot"></span></span><span class="ti hi">Swahili<span class="ti-dot"></span></span><span class="ti">Igbo<span class="ti-dot"></span></span><span class="ti">Zulu<span class="ti-dot"></span></span><span class="ti hi">Twi<span class="ti-dot"></span></span><span class="ti">Wolof<span class="ti-dot"></span></span><span class="ti">Somali<span class="ti-dot"></span></span><span class="ti hi">Tigrinya<span class="ti-dot"></span></span><span class="ti">Shona<span class="ti-dot"></span></span><span class="ti hi">Kinyarwanda<span class="ti-dot"></span></span><span class="ti">Fula<span class="ti-dot"></span></span><span class="ti">Oromo<span class="ti-dot"></span></span><span class="ti hi">Lingala<span class="ti-dot"></span></span>
+      <span class="ti hi">Hausa<span class="ti-dot"></span></span><span class="ti">Yoruba<span class="ti-dot"></span></span><span class="ti">Amharic<span class="ti-dot"></span></span><span class="ti hi">Swahili<span class="ti-dot"></span></span><span class="ti">Igbo<span class="ti-dot"></span></span><span class="ti">Zulu<span class="ti-dot"></span></span><span class="ti hi">Twi<span class="ti-dot"></span></span><span class="ti">Wolof<span class="ti-dot"></span></span><span class="ti">Somali<span class="ti-dot"></span></span><span class="ti hi">Tigrinya<span class="ti-dot"></span></span><span class="ti">Shona<span class="ti-dot"></span></span><span class="ti hi">Kinyarwanda<span class="ti-dot"></span></span><span class="ti">Fula<span class="ti-dot"></span></span><span class="ti">Oromo<span class="ti-dot"></span></span><span class="ti hi">Lingala<span class="ti-dot"></span></span>
     </div>
   </div>
 
   <!-- ABOUT -->
-  <section id="about">
+  <section id="about" class="sec">
     <div class="wrap">
       <div class="about-grid">
-        <div class="about-left reveal">
-          <div class="about-accent"></div>
-          <p class="about-quote">
-            Building the <span class="a">data infrastructure</span> that gives African languages a voice in AI.
-          </p>
+        <div class="reveal">
+          <div class="eyebrow">Our Mission</div>
+          <h2 class="sh">Closing the <span class="ac">language gap</span> in AI</h2>
+          <br>
+          <p>Africa is home to over 2,000 languages — yet the vast majority remain underrepresented in modern AI systems. AfriAnnotate exists to change that.</p>
+          <p>We combine native-speaker annotators with AI-assisted workflows to deliver enterprise-grade labeled datasets for NLP, speech, and multimodal AI applications.</p>
+          <div class="about-feats">
+            <span class="feat"><span class="fdot"></span>Named Entity Recognition</span>
+            <span class="feat"><span class="fdot"></span>Sentiment Analysis</span>
+            <span class="feat"><span class="fdot"></span>Translation Pairs</span>
+            <span class="feat"><span class="fdot"></span>Speech Transcription</span>
+            <span class="feat"><span class="fdot"></span>Intent Classification</span>
+            <span class="feat"><span class="fdot"></span>Machine Reading</span>
+          </div>
         </div>
-        <div class="about-right reveal" style="transition-delay:0.15s">
-          <div class="label">Our Mission</div>
-          <p>
-            Africa is home to over 2,000 languages — yet the vast majority remain invisible to modern AI
-            systems. AfriAnnotate exists to close that gap. We combine native-speaker annotators with
-            AI-assisted workflows to deliver enterprise-grade labeled data at scale.
-          </p>
-          <p>
-            Founded in 2024, our team spans linguists, engineers, and NLP researchers working together
-            to make African languages first-class citizens of the AI world.
-          </p>
-          <div class="tags">
-            <span class="tag">Named Entity Recognition</span>
-            <span class="tag">Sentiment Analysis</span>
-            <span class="tag">Translation Pairs</span>
-            <span class="tag">Speech Transcription</span>
-            <span class="tag">Intent Classification</span>
-            <span class="tag">Machine Reading Comprehension</span>
+        <div class="reveal" style="transition-delay:0.12s">
+          <div class="about-card">
+            <p class="about-q">"Building the <span class="ac">data infrastructure</span> that gives African languages a voice in the age of AI."</p>
+            <div class="stripe"></div>
           </div>
         </div>
       </div>
@@ -876,153 +586,99 @@
   </section>
 
   <!-- SERVICES -->
-  <section id="services">
+  <section id="services" class="sec">
     <div class="wrap">
-      <div class="svc-head reveal">
+      <div class="svc-top reveal">
         <div>
-          <div class="label">What We Do</div>
-          <h2 class="h2">Our Services</h2>
+          <div class="eyebrow">What We Do</div>
+          <h2 class="sh">Our Services</h2>
         </div>
-        <a href="mailto:contact@afriannotate.com" class="btn btn-fill" style="flex-shrink:0">
+        <a href="mailto:contact@afriannotate.com" class="btn btn-primary" style="flex-shrink:0">
           Get in Touch
-          <svg class="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg class="arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
       </div>
       <div class="svc-grid">
         <div class="svc-card reveal">
-          <div class="svc-icon">🏷️</div>
+          <div class="svc-icon i1">🏷️</div>
           <div class="svc-title">Data Labeling</div>
-          <p class="svc-desc">
-            High-precision annotation at scale — millions of data points across text, audio, and multimodal
-            formats, validated by native-speaker linguists with AI-powered quality control.
-          </p>
+          <p class="svc-desc">High-precision annotation at scale — millions of data points validated by native-speaker linguists with AI-powered quality control.</p>
         </div>
-        <div class="svc-card reveal" style="transition-delay:0.12s">
-          <div class="svc-icon">⚡</div>
+        <div class="svc-card reveal" style="transition-delay:0.1s">
+          <div class="svc-icon i2">⚡</div>
           <div class="svc-title">Generative AI Workflows</div>
-          <p class="svc-desc">
-            No-code platform to build custom AI pipelines — from raw data ingestion to model-ready
-            outputs — with African language pre-trained models built in from day one.
-          </p>
+          <p class="svc-desc">No-code platform to build custom AI pipelines — from raw data ingestion to model-ready outputs with African language models built in.</p>
         </div>
-        <div class="svc-card reveal" style="transition-delay:0.24s">
-          <div class="svc-icon">🔌</div>
+        <div class="svc-card reveal" style="transition-delay:0.2s">
+          <div class="svc-icon i3">🔌</div>
           <div class="svc-title">API Integrations</div>
-          <p class="svc-desc">
-            Connect your existing ML toolchain through our comprehensive API suite. Flexible, secure,
-            SOC 2 / GDPR compliant, and built for enterprise-scale deployments.
-          </p>
+          <p class="svc-desc">Connect your ML toolchain via our comprehensive API suite. Flexible, secure, and built for enterprise-scale deployments.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- STATS -->
-  <section id="stats">
+  <section id="stats" class="sec">
     <div class="wrap">
-      <div class="stats-top reveal">
-        <div class="label" style="justify-content:center">
-          <span style="background:var(--terra);width:28px;height:1px;display:block"></span>
-          Impact
-          <span style="background:var(--terra);width:28px;height:1px;display:block"></span>
+      <div class="stats-layout">
+        <div class="reveal">
+          <div class="eyebrow stats-eyebrow">Impact</div>
+          <h2 class="sh" style="color:#F8FAFC">Numbers that <span class="ac">speak</span></h2>
+          <p style="color:rgba(248,250,252,0.58);font-size:0.97rem;line-height:1.78;margin-top:1rem">Since 2024, we've been building the largest African language annotation infrastructure in the world.</p>
+          <a href="mailto:contact@afriannotate.com" class="btn btn-primary" style="margin-top:1.8rem">Book a Demo</a>
         </div>
-        <h2 class="h2">Numbers that speak</h2>
-      </div>
-      <div class="stats-grid reveal" style="transition-delay:0.1s">
-        <div class="stat">
-          <span class="stat-n" data-target="50" data-suffix="M+">0</span>
-          <span class="stat-l">Data points annotated</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n" data-target="15" data-suffix="+">0</span>
-          <span class="stat-l">African languages supported</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n" data-target="99" data-suffix=".9%">0</span>
-          <span class="stat-l">Annotation accuracy rate</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n" data-target="500" data-suffix="+">0</span>
-          <span class="stat-l">Enterprise clients served</span>
+        <div class="reveal" style="transition-delay:0.12s">
+          <div class="sg">
+            <div class="s-cell"><span class="s-n" data-target="50" data-suffix="M+">0</span><span class="s-l">Data points annotated</span></div>
+            <div class="s-cell"><span class="s-n" data-target="15" data-suffix="+">0</span><span class="s-l">African languages</span></div>
+            <div class="s-cell"><span class="s-n" data-target="99" data-suffix=".9%">0</span><span class="s-l">Accuracy rate</span></div>
+            <div class="s-cell"><span class="s-n" data-target="500" data-suffix="+">0</span><span class="s-l">Enterprise clients</span></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- LANGUAGES -->
-  <section id="languages">
+  <section id="languages" class="sec">
     <div class="wrap">
       <div class="lang-layout">
         <div>
-          <div class="label reveal">Coverage</div>
-          <h2 class="h2 reveal" style="transition-delay:0.1s">Languages<br>We Support</h2>
-          <p class="lang-right reveal" style="transition-delay:0.2s;color:var(--muted);font-weight:300;line-height:1.8;margin-top:1.2rem">
-            From widely-spoken languages like Swahili and Hausa to lower-resource languages — we're
-            building annotation coverage where it matters most for African AI.
-          </p>
+          <div class="eyebrow reveal">Coverage</div>
+          <h2 class="sh reveal" style="transition-delay:0.08s">Languages<br>We Support</h2>
+          <p class="reveal" style="color:var(--gray);font-size:0.97rem;line-height:1.78;margin-top:0.9rem;transition-delay:0.16s">From major languages like Swahili and Hausa to lower-resource languages — we're building coverage where it matters most.</p>
         </div>
-        <div class="lang-cloud reveal" style="transition-delay:0.15s">
-          <span class="pill ft">Hausa</span>
-          <span class="pill ft">Swahili</span>
-          <span class="pill ft">Yoruba</span>
-          <span class="pill ft">Amharic</span>
-          <span class="pill">Igbo</span>
-          <span class="pill">Zulu</span>
-          <span class="pill">Twi</span>
-          <span class="pill">Wolof</span>
-          <span class="pill">Somali</span>
-          <span class="pill">Tigrinya</span>
-          <span class="pill">Shona</span>
-          <span class="pill">Kinyarwanda</span>
-          <span class="pill">Fula</span>
-          <span class="pill">Oromo</span>
-          <span class="pill">Lingala</span>
-          <span class="pill">Bambara</span>
-          <span class="pill">Afrikaans</span>
-          <span class="pill more">+ more coming</span>
+        <div class="lang-grid reveal" style="transition-delay:0.1s">
+          <span class="lpill ft">Hausa</span><span class="lpill ft">Swahili</span><span class="lpill ft">Yoruba</span><span class="lpill ft">Amharic</span><span class="lpill">Igbo</span><span class="lpill">Zulu</span><span class="lpill">Twi</span><span class="lpill">Wolof</span><span class="lpill">Somali</span><span class="lpill">Tigrinya</span><span class="lpill">Shona</span><span class="lpill">Kinyarwanda</span><span class="lpill">Fula</span><span class="lpill">Oromo</span><span class="lpill">Lingala</span><span class="lpill">Bambara</span><span class="lpill">Afrikaans</span><span class="lpill more">+ more coming</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section id="cta">
+  <section id="cta" class="sec">
     <div class="wrap">
       <div class="cta-inner reveal">
-        <div class="label" style="justify-content:center">
-          <span style="background:var(--terra);width:28px;height:1px;display:block"></span>
-          Get Involved
-          <span style="background:var(--terra);width:28px;height:1px;display:block"></span>
-        </div>
-        <h2 class="cta-h">
-          Ready to build AI that<br>
-          <span class="a">speaks Africa?</span>
-        </h2>
-        <p class="cta-p">
-          Whether you're an NLP researcher, enterprise team, or developer — let's work together
-          to bring African language data to the forefront of global AI.
-        </p>
+        <div class="eyebrow cta-eyebrow">Get Involved</div>
+        <h2 class="cta-h">Ready to build AI that<br><span class="ac">speaks Africa?</span></h2>
+        <p class="cta-p">Whether you're an NLP researcher, enterprise team, or developer — let's work together to bring African language data to the forefront of global AI.</p>
         <div class="cta-btns">
-          <a href="mailto:contact@afriannotate.com" class="btn btn-fill">
+          <a href="mailto:contact@afriannotate.com" class="btn btn-primary">
             Book a Demo
-            <svg class="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <a href="https://twitter.com/afriannotate" target="_blank" rel="noopener" class="btn btn-outline">
-            Follow @afriannotate
-          </a>
+          <a href="https://twitter.com/afriannotate" class="btn btn-ghost-lt" target="_blank" rel="noopener">Follow @afriannotate</a>
         </div>
-        <p class="cta-note">
-          Or email us at <a href="mailto:contact@afriannotate.com">contact@afriannotate.com</a>
-        </p>
+        <p class="cta-note">Or email us at <a href="mailto:contact@afriannotate.com">contact@afriannotate.com</a></p>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="kente" style="margin-bottom:2rem;border-radius:2px"></div>
-    <div class="foot-inner">
-      <a href="#" class="foot-logo">Afri<em>Annotate</em></a>
+    <div class="foot">
+      <a href="#" class="foot-logo">Afri<span>Annotate</span></a>
       <span class="foot-copy">© 2025 AfriAnnotate. All rights reserved.</span>
       <ul class="foot-links">
         <li><a href="#about">About</a></li>
@@ -1035,35 +691,28 @@
   </footer>
 
   <script>
-    // Scroll reveal
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-    }, { threshold: 0.1 });
+    const io = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('vis'); }), { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // Animated counters
-    const co = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting || e.target.dataset.done) return;
-        e.target.dataset.done = '1';
-        const target = +e.target.dataset.target;
-        const suffix = e.target.dataset.suffix || '';
-        const dur = 1800;
-        const t0 = performance.now();
+    const co = new IntersectionObserver(e => {
+      e.forEach(x => {
+        if (!x.isIntersecting || x.target.dataset.done) return;
+        x.target.dataset.done = '1';
+        const target = +x.target.dataset.target, suffix = x.target.dataset.suffix || '';
+        const t0 = performance.now(), dur = 1600;
         (function tick(now) {
           const p = Math.min((now - t0) / dur, 1);
           const ease = 1 - Math.pow(1 - p, 3);
-          e.target.textContent = Math.floor(ease * target) + (p === 1 ? suffix : '');
+          x.target.textContent = Math.floor(ease * target) + (p === 1 ? suffix : '');
           if (p < 1) requestAnimationFrame(tick);
         })(performance.now());
       });
     }, { threshold: 0.5 });
-    document.querySelectorAll('.stat-n').forEach(el => co.observe(el));
+    document.querySelectorAll('.s-n').forEach(el => co.observe(el));
 
-    // Nav shrink on scroll
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
-      nav.style.padding = scrollY > 60 ? '0.7rem 3rem' : '1.1rem 3rem';
+      nav.style.boxShadow = scrollY > 10 ? '0 2px 12px rgba(15,23,42,0.08)' : '';
     }, { passive: true });
   </script>
 </body>
