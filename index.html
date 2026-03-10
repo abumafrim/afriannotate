@@ -13,18 +13,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:          #FDFAF6;
-      --bg-2:        #F5F0E8;
-      --bg-3:        #EDE7DC;
+      --bg:          #FFFFFF;
+      --bg-2:        #F7F8FA;
+      --bg-3:        #EFF0F2;
       --terra:       #C4391A;
       --terra-dk:    #9A2D13;
       --gold:        #B87318;
       --gold-lt:     #D4901F;
       --green:       #1E5236;
       --cream:       #FFFFFF;
-      --ink:         #1A1614;
-      --muted:       rgba(26,22,20,0.5);
-      --border:      rgba(26,22,20,0.1);
+      --ink:         #0D1117;
+      --muted:       rgba(13,17,23,0.5);
+      --border:      rgba(13,17,23,0.09);
     }
 
     html { scroll-behavior: smooth; }
@@ -127,9 +127,8 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 70% 55% at 78% 18%, rgba(196,57,26,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 55% at 8% 80%,  rgba(30,82,54,0.1)   0%, transparent 60%),
-        radial-gradient(ellipse 45% 35% at 45% 45%, rgba(184,115,24,0.05) 0%, transparent 70%);
+        radial-gradient(ellipse 60% 50% at 80% 15%, rgba(196,57,26,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 5% 85%,  rgba(30,82,54,0.07)  0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -237,7 +236,7 @@
     }
     .scroll-line {
       width: 36px; height: 1px;
-      background: rgba(26,22,20,0.15);
+      background: rgba(13,17,23,0.15);
       position: relative;
       overflow: hidden;
     }
@@ -386,7 +385,7 @@
     .about-quote .a { color: var(--terra); }
 
     .about-right p {
-      color: rgba(26,22,20,0.65);
+      color: rgba(13,17,23,0.65);
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.85;
@@ -400,9 +399,9 @@
       margin-top: 1.8rem;
     }
     .tag {
-      background: rgba(26,22,20,0.04);
+      background: rgba(13,17,23,0.04);
       border: 1px solid var(--border);
-      color: rgba(26,22,20,0.65);
+      color: rgba(13,17,23,0.6);
       font-size: 0.78rem;
       font-weight: 400;
       padding: 0.32rem 0.85rem;
@@ -475,7 +474,7 @@
       margin-bottom: 0.65rem;
     }
     .svc-desc {
-      color: rgba(26,22,20,0.6);
+      color: rgba(13,17,23,0.6);
       font-size: 0.92rem;
       font-weight: 300;
       line-height: 1.75;
@@ -560,9 +559,9 @@
       gap: 0.55rem;
     }
     .pill {
-      border: 1px solid rgba(26,22,20,0.12);
-      background: rgba(26,22,20,0.03);
-      color: rgba(26,22,20,0.65);
+      border: 1px solid rgba(13,17,23,0.12);
+      background: rgba(13,17,23,0.03);
+      color: rgba(13,17,23,0.65);
       font-size: 0.82rem;
       padding: 0.38rem 0.95rem;
       border-radius: 100px;
