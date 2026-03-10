@@ -13,24 +13,25 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:          #09080A;
-      --bg-2:        #111010;
-      --bg-3:        #191817;
-      --terra:       #D94B1F;
-      --terra-dk:    #A83515;
-      --gold:        #E8A232;
-      --gold-lt:     #F5C05A;
-      --green:       #2A6347;
-      --cream:       #F7F0E6;
-      --muted:       rgba(247,240,230,0.45);
-      --border:      rgba(247,240,230,0.07);
+      --bg:          #FDFAF6;
+      --bg-2:        #F5F0E8;
+      --bg-3:        #EDE7DC;
+      --terra:       #C4391A;
+      --terra-dk:    #9A2D13;
+      --gold:        #B87318;
+      --gold-lt:     #D4901F;
+      --green:       #1E5236;
+      --cream:       #FFFFFF;
+      --ink:         #1A1614;
+      --muted:       rgba(26,22,20,0.5);
+      --border:      rgba(26,22,20,0.1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
-      color: var(--cream);
+      color: var(--ink);
       font-family: 'Outfit', sans-serif;
       font-size: 16px;
       line-height: 1.6;
@@ -68,7 +69,8 @@
       padding: 1.1rem 3rem;
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      background: rgba(9,8,10,0.85);
+      background: rgba(253,250,246,0.92);
+      box-shadow: 0 1px 0 var(--border);
       border-bottom: 1px solid var(--border);
       transition: padding 0.3s;
     }
@@ -77,7 +79,7 @@
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: 1.35rem;
-      color: var(--cream);
+      color: var(--ink);
       text-decoration: none;
       display: flex;
       align-items: center;
@@ -100,7 +102,7 @@
       text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: var(--cream); }
+    .nav-links a:hover { color: var(--ink); }
     .nav-demo {
       background: var(--terra);
       color: var(--cream) !important;
@@ -125,9 +127,9 @@
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 70% 55% at 78% 18%, rgba(217,75,31,0.13) 0%, transparent 60%),
-        radial-gradient(ellipse 55% 55% at 8% 80%,  rgba(42,99,71,0.18)  0%, transparent 60%),
-        radial-gradient(ellipse 45% 35% at 45% 45%, rgba(232,162,50,0.04) 0%, transparent 70%);
+        radial-gradient(ellipse 70% 55% at 78% 18%, rgba(196,57,26,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 55% at 8% 80%,  rgba(30,82,54,0.1)   0%, transparent 60%),
+        radial-gradient(ellipse 45% 35% at 45% 45%, rgba(184,115,24,0.05) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -235,7 +237,7 @@
     }
     .scroll-line {
       width: 36px; height: 1px;
-      background: rgba(247,240,230,0.2);
+      background: rgba(26,22,20,0.15);
       position: relative;
       overflow: hidden;
     }
@@ -275,12 +277,12 @@
     }
     .btn-outline {
       background: transparent;
-      color: var(--cream);
+      color: var(--ink);
       border: 1px solid var(--border);
     }
     .btn-outline:hover {
-      border-color: rgba(247,240,230,0.22);
-      background: rgba(247,240,230,0.04);
+      border-color: rgba(26,22,20,0.25);
+      background: rgba(26,22,20,0.04);
     }
 
     /* ── TICKER ──────────────────────────── */
@@ -384,7 +386,7 @@
     .about-quote .a { color: var(--terra); }
 
     .about-right p {
-      color: rgba(247,240,230,0.65);
+      color: rgba(26,22,20,0.65);
       font-size: 1rem;
       font-weight: 300;
       line-height: 1.85;
@@ -398,9 +400,9 @@
       margin-top: 1.8rem;
     }
     .tag {
-      background: rgba(247,240,230,0.04);
+      background: rgba(26,22,20,0.04);
       border: 1px solid var(--border);
-      color: rgba(247,240,230,0.7);
+      color: rgba(26,22,20,0.65);
       font-size: 0.78rem;
       font-weight: 400;
       padding: 0.32rem 0.85rem;
@@ -444,8 +446,8 @@
     }
     .svc-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 22px 60px rgba(0,0,0,0.45);
-      border-color: rgba(247,240,230,0.11);
+      box-shadow: 0 16px 48px rgba(26,22,20,0.1);
+      border-color: rgba(26,22,20,0.18);
     }
     .svc-card:hover::before { transform: scaleX(1); }
     .svc-card:nth-child(1) { --c: var(--terra); }
@@ -472,7 +474,7 @@
       margin-bottom: 0.65rem;
     }
     .svc-desc {
-      color: rgba(247,240,230,0.55);
+      color: rgba(26,22,20,0.6);
       font-size: 0.92rem;
       font-weight: 300;
       line-height: 1.75;
@@ -510,12 +512,12 @@
     }
 
     .stat {
-      background: var(--bg-2);
+      background: var(--bg);
       padding: 3rem 2rem;
       text-align: center;
       transition: background 0.22s;
     }
-    .stat:hover { background: var(--bg-3); }
+    .stat:hover { background: var(--bg-2); }
 
     .stat-n {
       font-family: 'Syne', sans-serif;
@@ -557,9 +559,9 @@
       gap: 0.55rem;
     }
     .pill {
-      border: 1px solid rgba(247,240,230,0.08);
-      background: rgba(247,240,230,0.03);
-      color: rgba(247,240,230,0.7);
+      border: 1px solid rgba(26,22,20,0.12);
+      background: rgba(26,22,20,0.03);
+      color: rgba(26,22,20,0.65);
       font-size: 0.82rem;
       padding: 0.38rem 0.95rem;
       border-radius: 100px;
@@ -658,19 +660,21 @@
       text-decoration: none;
     }
     .foot-logo em { color: var(--terra); font-style: normal; }
-    .foot-copy { font-size: 0.8rem; color: rgba(247,240,230,0.25); }
+    .foot-logo { color: var(--ink) !important; }
+    .foot-logo em { color: var(--terra); font-style: normal; }
+    .foot-copy { font-size: 0.8rem; color: rgba(26,22,20,0.35); }
     .foot-links {
       display: flex;
       gap: 1.5rem;
       list-style: none;
     }
     .foot-links a {
-      color: rgba(247,240,230,0.35);
+      color: rgba(26,22,20,0.4);
       text-decoration: none;
       font-size: 0.82rem;
       transition: color 0.2s;
     }
-    .foot-links a:hover { color: var(--cream); }
+    .foot-links a:hover { color: var(--ink); }
 
     /* ── ANIMATIONS ──────────────────────── */
     @keyframes fadeUp  { to { opacity:1; transform:translateY(0); } }
@@ -772,7 +776,7 @@
 
     <div class="hero-badge">
       <span class="badge-dot"></span>
-      AfricaNLP 2025 Workshop
+      Africa's Language AI Company
     </div>
 
     <h1 class="hero-hl">
