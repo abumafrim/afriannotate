@@ -3,496 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AfriAnnotate — Precision Annotation for African Languages</title>
-  <meta name="description" content="Enterprise AI data annotation platform for African languages. 50M+ data points. 15+ languages. 99.9% accuracy.">
+  <title>AfriAnnotate — Africa's Language AI Company</title>
+  <meta name="description" content="AfriAnnotate builds datasets, benchmarks, and annotation infrastructure for African language AI. 50M+ data points. 20+ languages. Peer-reviewed research.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23C8401C'/%3E%3Cpath d='M32 8C40 8 50 12 54 19C58 26 56 33 54 38C60 41 62 48 58 54C54 60 48 63 42 64C36 65 28 63 22 59C15 55 11 48 10 41C9 34 11 27 13 20C16 13 22 8 28 9Z' fill='white' opacity='0.92'/%3E%3Cline x1='40' y1='44' x2='54' y2='30' stroke='%23E8A232' stroke-width='3' stroke-linecap='round'/%3E%3Cpolygon points='54,27 59,32 56,35 51,30' fill='%23E8A232'/%3E%3Cpolygon points='38,45 43,50 40,52 37,48' fill='%23C8401C'/%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-8 -3 84 96'%3E%3Cpath d='M22 3 C30 1 40 1 46 4 C51 6 53 5 55 11 C57 17 55 23 57 28 C60 24 65 27 62 32 C59 35 56 31 55 38 C52 50 50 62 46 72 C42 80 36 86 32 88 L24 82 C18 76 14 64 12 52 C10 42 8 32 10 22 C13 14 15 8 22 3 Z' fill='%23F5A65B' stroke='%231A1A1A' stroke-width='3.8' stroke-linejoin='round'/%3E%3Cellipse cx='64' cy='64' rx='3' ry='5.5' fill='%23F5A65B' stroke='%231A1A1A' stroke-width='2.2' transform='rotate(-18 64 64)'/%3E%3Cg transform='rotate(-35 46 62)'%3E%3Crect x='43' y='47' width='6.5' height='26' rx='1.5' fill='%23F5D028' stroke='%23222' stroke-width='1.2'/%3E%3Cpolygon points='43,73 49.5,73 46.25,81' fill='%231A1A1A'/%3E%3Crect x='43' y='45' width='6.5' height='4' rx='1.2' fill='%23FF9999' stroke='%23555' stroke-width='0.8'/%3E%3C/g%3E%3C/svg%3E">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #FFFFFF;
-      --bg-alt:   #F8FAFC;
-      --dark:     #0F172A;
-      --dark2:    #1E293B;
-      --terra:    #C8401C;
-      --terra-dk: #9E3214;
-      --terra-lt: rgba(200,64,28,0.08);
-      --amber:    #B45309;
-      --green:    #065F46;
-      --gray:     rgba(15,23,42,0.55);
-      --border:   rgba(15,23,42,0.1);
-      --shadow:   0 1px 3px rgba(15,23,42,0.08), 0 4px 16px rgba(15,23,42,0.06);
+      --bg:        #FDFBF7;
+      --bg-alt:    #FEF5E8;
+      --dark:      #1C0F08;
+      --dark2:     #2E1A0E;
+      --orange:    #E8722A;
+      --orange-dk: #C45C1A;
+      --orange-lt: rgba(232,114,42,0.1);
+      --green:     #1B5E3A;
+      --green-lt:  rgba(27,94,58,0.1);
+      --gold:      #C8941A;
+      --gray:      rgba(28,15,8,0.55);
+      --border:    rgba(28,15,8,0.1);
+      --shadow:    0 2px 8px rgba(28,15,8,0.07),0 6px 24px rgba(28,15,8,0.05);
+      --shadow-lg: 0 4px 16px rgba(28,15,8,0.1),0 16px 48px rgba(28,15,8,0.08);
     }
 
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--dark);
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.65;
-      overflow-x: hidden;
-    }
+    body { background: var(--bg); color: var(--dark); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; line-height: 1.65; overflow-x: hidden; }
 
     /* NAV */
-    nav {
-      position: fixed;
-      inset: 0 0 auto;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 3rem;
-      height: 68px;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      transition: box-shadow 0.3s;
-    }
-
-    .logo {
-      font-weight: 800;
-      font-size: 1.3rem;
-      color: var(--dark);
-      text-decoration: none;
-    }
-    .logo span { color: var(--terra); }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      color: var(--gray);
-      text-decoration: none;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
+    nav { position: fixed; inset: 0 0 auto; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 70px; background: var(--bg); border-bottom: 1px solid transparent; transition: border-color 0.3s, box-shadow 0.3s; }
+    nav.scrolled { border-color: var(--border); box-shadow: 0 1px 16px rgba(28,15,8,0.07); }
+    .logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--dark); font-weight: 800; font-size: 1.12rem; letter-spacing: -0.01em; }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: var(--dark); }
-    .nav-cta {
-      background: var(--terra) !important;
-      color: #fff !important;
-      padding: 0.48rem 1.15rem;
-      border-radius: 6px;
-      font-weight: 600 !important;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: var(--terra-dk) !important; }
+    .nav-cta { background: var(--orange) !important; color: #fff !important; padding: 0.5rem 1.25rem !important; border-radius: 8px; font-weight: 600 !important; transition: background 0.2s !important; }
+    .nav-cta:hover { background: var(--orange-dk) !important; }
 
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      gap: 4rem;
-      padding: 7rem 3rem 5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--terra-lt);
-      color: var(--terra);
-      font-size: 0.74rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      padding: 0.32rem 0.85rem;
-      border-radius: 100px;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(200,64,28,0.18);
-    }
-    .badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); animation: pulse 2s infinite; }
-
-    .hero-h {
-      font-weight: 800;
-      font-size: clamp(2.4rem, 3.8vw, 3.6rem);
-      line-height: 1.13;
-      letter-spacing: -0.025em;
-      color: var(--dark);
-      margin-bottom: 1.2rem;
-    }
-    .hero-h .ac { color: var(--terra); }
-
-    .hero-p {
-      font-size: 1.05rem;
-      color: var(--gray);
-      line-height: 1.78;
-      margin-bottom: 2rem;
-      max-width: 440px;
-    }
-
-    .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
-    /* Hero right: UI preview card */
-    .hero-right {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .preview-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      box-shadow: 0 8px 32px rgba(15,23,42,0.1), 0 1px 4px rgba(15,23,42,0.06);
-      width: 100%;
-      max-width: 400px;
-    }
-
-    .pc-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 0.85rem;
-    }
-
-    .pc-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1.25rem;
-    }
-    .chip {
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 0.28rem 0.7rem;
-      border-radius: 100px;
-    }
-    .chip-r { background: var(--terra-lt); color: var(--terra); }
-    .chip-g { background: rgba(6,95,70,0.08); color: var(--green); }
-    .chip-a { background: rgba(180,83,9,0.1); color: var(--amber); }
-
-    .pc-divider { height: 1px; background: var(--border); margin-bottom: 1.1rem; }
-
-    .pc-stats {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 0.75rem;
-    }
-    .pc-stat {
-      background: var(--bg-alt);
-      border-radius: 8px;
-      padding: 0.8rem 0.6rem;
-      text-align: center;
-    }
-    .pc-stat-n {
-      display: block;
-      font-weight: 800;
-      font-size: 1.35rem;
-      color: var(--terra);
-      line-height: 1;
-      margin-bottom: 0.2rem;
-    }
-    .pc-stat-l { font-size: 0.68rem; color: var(--gray); font-weight: 500; }
-
-    /* BUTTONS */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 0.72rem 1.5rem;
-      border-radius: 7px;
-      text-decoration: none;
-      transition: all 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-primary { background: var(--terra); color: #fff; }
-    .btn-primary:hover { background: var(--terra-dk); box-shadow: 0 6px 20px rgba(200,64,28,0.28); transform: translateY(-1px); }
-    .btn-ghost { background: transparent; color: var(--dark); border: 1.5px solid var(--border); }
-    .btn-ghost:hover { border-color: rgba(15,23,42,0.22); background: var(--bg-alt); }
-    .btn-ghost-lt { background: transparent; color: rgba(248,250,252,0.85); border: 1.5px solid rgba(255,255,255,0.15); }
-    .btn-ghost-lt:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.06); color: #fff; }
-
-    .arr { width: 14px; height: 14px; stroke: currentColor; fill: none; flex-shrink: 0; }
-
-    /* TICKER */
-    .ticker { background: var(--dark); padding: 0.8rem 0; overflow: hidden; }
-    .ticker-track { display: flex; white-space: nowrap; animation: scroll 32s linear infinite; }
-    .ti {
-      display: inline-flex;
-      align-items: center;
-      gap: 1.2rem;
-      padding: 0 1.8rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.38);
-      flex-shrink: 0;
-    }
-    .ti.hi { color: rgba(255,255,255,0.82); }
-    .ti-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--terra); flex-shrink: 0; }
-
-    /* SECTION COMMONS */
+    /* UTILS */
     .sec { padding: 6rem 3rem; }
     .wrap { max-width: 1160px; margin: 0 auto; }
+    .eyebrow { display: flex; align-items: center; gap: 0.6rem; font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+    .eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--orange); border-radius: 2px; flex-shrink: 0; }
+    .sh { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem,2.8vw,2.5rem); font-weight: 800; line-height: 1.12; letter-spacing: -0.02em; margin-bottom: 1.2rem; }
+    .sh .ac { color: var(--orange); }
+    .sh em { font-style: italic; }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--terra);
-      margin-bottom: 0.9rem;
-    }
-    .eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--terra); border-radius: 2px; }
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.6rem; border-radius: 8px; font-family: inherit; font-size: 0.92rem; font-weight: 600; text-decoration: none; transition: all 0.2s; cursor: pointer; border: 2px solid transparent; }
+    .btn-primary { background: var(--orange); color: #fff; border-color: var(--orange); }
+    .btn-primary:hover { background: var(--orange-dk); border-color: var(--orange-dk); }
+    .btn-ghost { background: transparent; color: var(--dark); border-color: var(--border); }
+    .btn-ghost:hover { border-color: var(--dark2); }
+    .arr { width: 14px; height: 14px; fill: none; stroke: currentColor; }
 
-    .sh {
-      font-weight: 800;
-      font-size: clamp(1.85rem, 3.2vw, 2.75rem);
-      line-height: 1.13;
-      letter-spacing: -0.02em;
-    }
-    .sh .ac { color: var(--terra); }
+    /* HERO */
+    #hero-wrap { max-width: 1160px; margin: 0 auto; padding: 0 3rem; }
+    #hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding: 9rem 0 5rem; min-height: 100vh; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--orange-lt); color: var(--orange-dk); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 100px; border: 1px solid rgba(232,114,42,0.22); margin-bottom: 1.5rem; }
+    .badge-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+    .hero-h { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem,4vw,3.6rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 1.4rem; }
+    .hero-h em { font-style: italic; color: var(--orange); }
+    .hero-p { font-size: 1.03rem; line-height: 1.75; color: var(--gray); margin-bottom: 2.2rem; max-width: 480px; }
+    .hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .hero-right { display: flex; flex-direction: column; gap: 1rem; }
 
-    /* ABOUT */
-    #about { background: var(--bg-alt); }
+    /* ANNOTATION DEMO CARDS */
+    .anno-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.4rem 1.6rem; box-shadow: var(--shadow); }
+    .ac-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray); margin-bottom: 0.9rem; }
+    .ac-sentence { font-size: 1rem; line-height: 2; margin-bottom: 0.8rem; }
+    .at-tag { display: inline-block; font-size: 0.62rem; font-weight: 700; padding: 0.08rem 0.45rem; border-radius: 4px; margin-right: 0.15rem; text-transform: uppercase; letter-spacing: 0.04em; vertical-align: middle; }
+    .at-tag.per { background: rgba(232,114,42,0.12); color: var(--orange-dk); border: 1px solid rgba(232,114,42,0.25); }
+    .at-tag.loc { background: var(--green-lt); color: var(--green); border: 1px solid rgba(27,94,58,0.2); }
+    .at-word { font-weight: 600; color: var(--dark); margin-right: 0.3rem; }
+    .at-plain { color: var(--dark2); margin-right: 0.3rem; }
+    .ac-dataset { font-size: 0.75rem; color: var(--gray); }
+    .ac-dataset strong { color: var(--dark); }
+    .ac-tweet { font-size: 1rem; font-style: italic; color: var(--dark); margin-bottom: 0.7rem; line-height: 1.5; }
+    .ac-sentiment { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 100px; }
+    .ac-sentiment.neg { background: rgba(220,50,50,0.08); color: #B91C1C; border: 1px solid rgba(220,50,50,0.15); }
+    .sent-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .stat-row-mini { background: var(--dark); border-radius: 16px; padding: 1.3rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; }
+    .srm-item { text-align: center; }
+    .srm-item + .srm-item { border-left: 1px solid rgba(255,255,255,0.1); }
+    .srm-n { display: block; font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 800; color: var(--orange); line-height: 1; }
+    .srm-l { font-size: 0.71rem; color: rgba(255,255,255,0.45); font-weight: 500; margin-top: 0.25rem; display: block; }
 
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
+    /* TICKER */
+    .ticker { background: var(--dark); overflow: hidden; padding: 0.85rem 0; }
+    .ticker-track { display: flex; width: max-content; animation: scroll 38s linear infinite; }
+    .ti { color: rgba(255,255,255,0.35); font-size: 0.77rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 0 1.4rem; white-space: nowrap; }
+    .ti.hi { color: var(--orange); font-weight: 700; }
 
-    .about-left .sh { margin-bottom: 1.4rem; }
-    .about-left p { color: var(--gray); font-size: 0.97rem; line-height: 1.82; margin-bottom: 1rem; }
+    /* DATASETS */
+    #datasets { background: var(--bg-alt); }
+    .sec-header { text-align: center; max-width: 620px; margin: 0 auto 3.5rem; }
+    .sec-header .eyebrow { justify-content: center; }
+    .sec-header .eyebrow::before { display: none; }
+    .sec-header p { color: var(--gray); font-size: 0.98rem; line-height: 1.72; margin-top: 0.8rem; }
+    .datasets-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .ds-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; box-shadow: var(--shadow); transition: box-shadow 0.25s,transform 0.25s,border-color 0.25s; display: flex; flex-direction: column; }
+    .ds-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); border-color: rgba(28,15,8,0.15); }
+    .ds-card.dark { background: var(--dark); border-color: var(--dark); }
+    .ds-card.dark .ds-name { color: #FDFBF7; }
+    .ds-card.dark .ds-desc { color: rgba(253,251,247,0.52); }
+    .ds-card.dark .ds-divider { border-color: rgba(255,255,255,0.1); }
+    .ds-card.dark .ds-meta-label { color: rgba(255,255,255,0.38); }
+    .ds-card.dark .ds-meta-val { color: rgba(253,251,247,0.9); }
+    .ds-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.6rem; }
+    .ds-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .ds-icon.o { background: var(--orange-lt); }
+    .ds-icon.g { background: var(--green-lt); }
+    .ds-icon.inv { background: rgba(232,114,42,0.2); }
+    .ds-badge { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
+    .ds-badge.orange { background: var(--orange-lt); color: var(--orange-dk); }
+    .ds-badge.green { background: var(--green-lt); color: var(--green); }
+    .ds-badge.award { background: rgba(200,148,26,0.12); color: var(--gold); }
+    .ds-badge.inv { background: rgba(232,114,42,0.18); color: #FFAA6A; }
+    .ds-task { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--orange); margin-bottom: 0.3rem; }
+    .ds-name { font-family: 'Playfair Display', serif; font-size: 1.13rem; font-weight: 700; line-height: 1.22; margin-bottom: 0.55rem; }
+    .ds-desc { font-size: 0.84rem; line-height: 1.65; color: var(--gray); flex: 1; margin-bottom: 0.75rem; }
+    .ds-divider { border: none; border-top: 1px solid var(--border); margin: 0.6rem 0; }
+    .ds-meta { display: flex; gap: 1.25rem; }
+    .ds-meta-item { display: flex; flex-direction: column; gap: 0.1rem; }
+    .ds-meta-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray); font-weight: 600; }
+    .ds-meta-val { font-size: 0.92rem; font-weight: 700; color: var(--dark); }
+    .ds-links { display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+    .ds-link { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.76rem; font-weight: 600; color: var(--orange); text-decoration: none; transition: gap 0.18s; padding-bottom: 1px; border-bottom: 1px solid rgba(232,114,42,0.25); }
+    .ds-link:hover { gap: 0.5rem; border-color: var(--orange); }
+    .ds-card.dark .ds-link { color: #FFAA6A; border-color: rgba(255,170,106,0.3); }
+    .ds-card.dark .ds-meta-val { color: rgba(253,251,247,0.9); }
 
-    .about-feats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.55rem;
-      margin-top: 1.8rem;
-    }
-    .feat {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.83rem;
-      font-weight: 500;
-      color: var(--dark2);
-    }
-    .fdot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); flex-shrink: 0; }
-
-    .about-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 2.2rem 2.5rem;
-      box-shadow: var(--shadow);
-    }
-    .about-q {
-      font-size: clamp(1.25rem, 2.2vw, 1.75rem);
-      font-weight: 700;
-      line-height: 1.35;
-      color: var(--dark);
-      margin-bottom: 1.4rem;
-    }
-    .about-q .ac { color: var(--terra); }
-
-    .stripe {
-      height: 4px;
-      border-radius: 3px;
-      background: repeating-linear-gradient(
-        90deg,
-        var(--terra) 0, var(--terra) 26px,
-        #D97706 26px, #D97706 52px,
-        var(--green) 52px, var(--green) 78px,
-        transparent 78px, transparent 96px
-      );
-    }
-
-    /* SERVICES */
-    #services { background: var(--bg); }
-
-    .svc-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 2.5rem;
-    }
-
-    .svc-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.2rem;
-    }
-
-    .svc-card {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.8rem;
-      transition: transform 0.24s, box-shadow 0.24s, border-color 0.24s;
-    }
-    .svc-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 28px rgba(15,23,42,0.09);
-      border-color: rgba(200,64,28,0.18);
-    }
-
-    .svc-icon {
-      width: 46px; height: 46px;
-      border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.25rem;
-      margin-bottom: 1.1rem;
-    }
-    .i1 { background: rgba(200,64,28,0.1); }
-    .i2 { background: rgba(180,83,9,0.1); }
-    .i3 { background: rgba(6,95,70,0.1); }
-
-    .svc-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.45rem; color: var(--dark); }
-    .svc-desc { font-size: 0.875rem; color: var(--gray); line-height: 1.72; }
-
-    /* STATS */
-    #stats { background: var(--dark); }
-
-    .stats-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .stats-left .sh { color: #F8FAFC; margin-bottom: 1rem; }
-    .stats-left p { color: rgba(248,250,252,0.58); font-size: 0.97rem; line-height: 1.78; margin-bottom: 2rem; }
-    .stats-eyebrow { color: #E8A232 !important; }
-    .stats-eyebrow::before { background: #E8A232 !important; }
-
-    .sg {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .s-cell {
-      background: rgba(255,255,255,0.04);
-      padding: 2.4rem 1.5rem;
-      text-align: center;
-      transition: background 0.2s;
-    }
-    .s-cell:hover { background: rgba(255,255,255,0.08); }
-    .s-n {
-      display: block;
-      font-weight: 800;
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      color: var(--terra);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-    .s-l { font-size: 0.78rem; color: rgba(255,255,255,0.48); font-weight: 400; }
+    /* TEAM */
+    #team { background: var(--bg); }
+    .team-header { text-align: center; max-width: 540px; margin: 0 auto 3.5rem; }
+    .team-header .eyebrow { justify-content: center; }
+    .team-header .eyebrow::before { display: none; }
+    .team-header p { color: var(--gray); margin-top: 0.75rem; font-size: 0.97rem; line-height: 1.7; }
+    .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.75rem; }
+    .team-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 2rem 1.75rem; box-shadow: var(--shadow); display: flex; flex-direction: column; align-items: center; text-align: center; transition: box-shadow 0.25s,transform 0.25s; }
+    .team-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .team-avatar { width: 70px; height: 70px; border-radius: 50%; background: var(--orange-lt); border: 3px solid var(--orange); margin-bottom: 1.1rem; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 800; color: var(--orange-dk); }
+    .team-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.2rem; }
+    .team-role { font-size: 0.75rem; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.55rem; }
+    .team-affil { font-size: 0.81rem; color: var(--gray); line-height: 1.5; margin-bottom: 1rem; flex: 1; }
+    .team-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: center; margin-bottom: 1rem; }
+    .ttag { font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 6px; background: var(--orange-lt); color: var(--orange-dk); }
+    .ttag.g { background: var(--green-lt); color: var(--green); }
+    .team-links { display: flex; gap: 0.5rem; }
+    .tlink { display: flex; align-items: center; justify-content: center; height: 30px; padding: 0 0.65rem; border-radius: 7px; background: rgba(28,15,8,0.06); color: var(--gray); text-decoration: none; font-size: 0.73rem; font-weight: 700; transition: all 0.2s; }
+    .tlink:hover { background: var(--dark); color: #fff; }
 
     /* LANGUAGES */
     #languages { background: var(--bg-alt); }
-
-    .lang-layout {
-      display: grid;
-      grid-template-columns: 2fr 3fr;
-      gap: 5rem;
-      align-items: start;
-    }
-    .lang-left .sh { margin-bottom: 1rem; }
+    .lang-layout { display: grid; grid-template-columns: 2fr 3fr; gap: 5rem; align-items: start; }
     .lang-left p { color: var(--gray); font-size: 0.97rem; line-height: 1.78; }
-
     .lang-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-
-    .lpill {
-      background: #fff;
-      border: 1px solid var(--border);
-      color: var(--dark2);
-      font-size: 0.82rem;
-      font-weight: 500;
-      padding: 0.38rem 0.95rem;
-      border-radius: 100px;
-      transition: all 0.18s;
-      cursor: default;
-    }
-    .lpill:hover { border-color: var(--terra); color: var(--terra); background: var(--terra-lt); }
-    .lpill.ft { background: var(--terra-lt); border-color: rgba(200,64,28,0.22); color: var(--terra); font-weight: 600; }
-    .lpill.more { border-style: dashed; opacity: 0.45; }
+    .lpill { background: #fff; border: 1px solid var(--border); color: var(--dark2); font-size: 0.82rem; font-weight: 500; padding: 0.38rem 0.95rem; border-radius: 100px; transition: all 0.18s; }
+    .lpill:hover { border-color: var(--orange); color: var(--orange-dk); background: var(--orange-lt); }
+    .lpill.ft { background: var(--orange-lt); border-color: rgba(232,114,42,0.25); color: var(--orange-dk); font-weight: 600; }
+    .lpill.g { background: var(--green-lt); border-color: rgba(27,94,58,0.2); color: var(--green); font-weight: 600; }
+    .lpill.more { border-style: dashed; opacity: 0.4; }
 
     /* CTA */
     #cta { background: var(--dark); text-align: center; }
     .cta-inner { max-width: 600px; margin: 0 auto; }
-    .cta-eyebrow { color: var(--terra) !important; justify-content: center; }
-    .cta-eyebrow::before { background: var(--terra) !important; }
-    .cta-h { font-weight: 800; font-size: clamp(1.9rem, 3.5vw, 3rem); line-height: 1.13; letter-spacing: -0.02em; color: #F8FAFC; margin-bottom: 1rem; }
-    .cta-h .ac { color: var(--terra); }
-    .cta-p { color: rgba(248,250,252,0.58); font-size: 0.97rem; line-height: 1.78; margin-bottom: 2rem; }
-    .cta-btns { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
-    .cta-note { font-size: 0.82rem; color: rgba(248,250,252,0.38); }
-    .cta-note a { color: rgba(248,250,252,0.65); text-decoration: none; }
-    .cta-note a:hover { color: #fff; }
+    .cta-ey { color: var(--orange) !important; justify-content: center; }
+    .cta-ey::before { display: none !important; }
+    .cta-h { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 800; font-size: clamp(2rem,4vw,3.2rem); line-height: 1.1; letter-spacing: -0.02em; color: #FDFBF7; margin-bottom: 1rem; }
+    .cta-h em { font-style: normal; color: var(--orange); }
+    .cta-p { color: rgba(253,251,247,0.5); font-size: 0.97rem; line-height: 1.78; margin-bottom: 2rem; }
+    .cta-btns { display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .btn-cp { background: var(--orange); color: #fff; border: 2px solid var(--orange); }
+    .btn-cp:hover { background: var(--orange-dk); border-color: var(--orange-dk); }
+    .btn-cg { background: transparent; color: rgba(253,251,247,0.75); border: 2px solid rgba(255,255,255,0.18); }
+    .btn-cg:hover { border-color: rgba(255,255,255,0.45); color: #FDFBF7; }
+    .cta-note { font-size: 0.82rem; color: rgba(253,251,247,0.32); }
+    .cta-note a { color: rgba(253,251,247,0.58); text-decoration: none; }
+    .cta-note a:hover { color: #FDFBF7; }
 
     /* FOOTER */
-    footer {
-      background: var(--dark);
-      border-top: 1px solid rgba(255,255,255,0.07);
-      padding: 2rem 3rem;
-    }
-    .foot {
-      max-width: 1160px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    .foot-logo { font-weight: 800; font-size: 1.05rem; color: #F8FAFC; text-decoration: none; }
-    .foot-logo span { color: var(--terra); }
-    .foot-copy { font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+    footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 2rem 3rem; }
+    .foot { max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .foot-logo { font-weight: 800; font-size: 1rem; color: #FDFBF7; text-decoration: none; }
+    .foot-logo span { color: var(--orange); }
+    .foot-copy { font-size: 0.78rem; color: rgba(255,255,255,0.26); }
     .foot-links { display: flex; gap: 1.5rem; list-style: none; }
-    .foot-links a { color: rgba(255,255,255,0.38); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+    .foot-links a { color: rgba(255,255,255,0.36); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
     .foot-links a:hover { color: rgba(255,255,255,0.8); }
 
-    /* SCROLL REVEAL */
+    /* ANIMATIONS */
     .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .reveal.vis { opacity: 1; transform: none; }
-
-    /* KEYFRAMES */
-    @keyframes pulse   { 0%,100%{opacity:1} 50%{opacity:0.3} }
-    @keyframes scroll  { to { transform: translateX(-50%); } }
+    @keyframes scroll { to { transform: translateX(-50%); } }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
     /* MOBILE */
-    @media (max-width: 880px) {
+    @media (max-width: 900px) {
       nav { padding: 0 1.4rem; }
       .nav-links { display: none; }
-      #hero { grid-template-columns: 1fr; padding: 7rem 1.4rem 3rem; gap: 2.5rem; }
+      #hero-wrap { padding: 0 1.4rem; }
+      #hero { grid-template-columns: 1fr; padding: 8rem 0 4rem; gap: 2.5rem; }
       .hero-right { display: none; }
       .sec { padding: 4rem 1.4rem; }
-      .about-grid, .stats-layout, .lang-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-      .svc-grid { grid-template-columns: 1fr; }
-      .about-feats { grid-template-columns: 1fr; }
-      .svc-top { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+      .datasets-grid, .team-grid { grid-template-columns: 1fr; }
+      .lang-layout { grid-template-columns: 1fr; gap: 2.5rem; }
       footer { padding: 1.5rem 1.4rem; }
       .foot { flex-direction: column; align-items: flex-start; }
+    }
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .datasets-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -500,157 +223,307 @@
 
   <!-- NAV -->
   <nav id="nav">
-    <a href="#" class="logo">Afri<span>Annotate</span></a>
+    <a href="#" class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 -3 84 96" width="32" height="37" aria-hidden="true">
+        <path d="M22 3 C30 1 40 1 46 4 C51 6 53 5 55 11 C57 17 55 23 57 28 C60 24 65 27 62 32 C59 35 56 31 55 38 C52 50 50 62 46 72 C42 80 36 86 32 88 L24 82 C18 76 14 64 12 52 C10 42 8 32 10 22 C13 14 15 8 22 3 Z" fill="#F5A65B" stroke="#1A1A1A" stroke-width="3.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <ellipse cx="64" cy="64" rx="3" ry="5.5" fill="#F5A65B" stroke="#1A1A1A" stroke-width="2.2" transform="rotate(-18 64 64)"/>
+        <path d="M62 1 L63.2 4.8 L67 6 L63.2 7.2 L62 11 L60.8 7.2 L57 6 L60.8 4.8 Z" fill="#FF5A94"/>
+        <line x1="-5" y1="37" x2="-5" y2="43" stroke="#4DD4F0" stroke-width="2.8" stroke-linecap="round"/>
+        <line x1="-8" y1="40" x2="-2" y2="40" stroke="#4DD4F0" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M9 68 L10.2 71.8 L14 73 L10.2 74.2 L9 78 L7.8 74.2 L4 73 L7.8 71.8 Z" fill="#FFD22F"/>
+        <circle cx="66" cy="-1" r="2.5" fill="#FF7020"/>
+        <circle cx="53" cy="84" r="2" fill="#44BB44"/>
+        <g transform="rotate(-35 46 62)">
+          <rect x="43" y="47" width="6.5" height="26" rx="1.5" fill="#F5D028" stroke="#222" stroke-width="1.2"/>
+          <polygon points="43,73 49.5,73 46.25,81" fill="#1A1A1A"/>
+          <polygon points="43.5,71 49,71 46.25,74.5" fill="#D4A060"/>
+          <rect x="43" y="45" width="6.5" height="4" rx="1.2" fill="#FFB0B0" stroke="#555" stroke-width="0.8"/>
+          <line x1="43" y1="49" x2="49.5" y2="49" stroke="#C8A800" stroke-width="0.9"/>
+        </g>
+      </svg>
+      Afri<span>Annotate</span>
+    </a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
+      <li><a href="#datasets">Datasets</a></li>
+      <li><a href="#team">Team</a></li>
       <li><a href="#languages">Languages</a></li>
-      <li><a href="mailto:contact@afriannotate.com" class="nav-cta">Book a Demo</a></li>
+      <li><a href="mailto:contact@afriannotate.com" class="nav-cta">Get in Touch</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
-  <section id="hero">
-    <div>
-      <div class="hero-badge"><span class="badge-dot"></span> Africa's Language AI Company</div>
-      <h1 class="hero-h">Precision annotation for <span class="ac">Africa's languages</span></h1>
-      <p class="hero-p">AfriAnnotate delivers enterprise-grade labeled data for African language AI — combining native-speaker expertise with AI-powered workflows at scale.</p>
-      <div class="hero-btns">
-        <a href="mailto:contact@afriannotate.com" class="btn btn-primary">
-          Book a Demo
-          <svg class="arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <a href="#about" class="btn btn-ghost">Learn More</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="preview-card">
-        <div class="pc-label">Supported Languages</div>
-        <div class="pc-chips">
-          <span class="chip chip-r">Hausa</span>
-          <span class="chip chip-g">Swahili</span>
-          <span class="chip chip-a">Amharic</span>
-          <span class="chip chip-r">Yoruba</span>
-          <span class="chip chip-g">Igbo</span>
-          <span class="chip chip-a">Twi</span>
-          <span class="chip chip-r">Wolof</span>
-          <span class="chip chip-g">Zulu</span>
-          <span class="chip chip-a">Somali</span>
-          <span class="chip chip-r">+ 8 more</span>
-        </div>
-        <div class="pc-divider"></div>
-        <div class="pc-stats">
-          <div class="pc-stat"><span class="pc-stat-n">50M+</span><span class="pc-stat-l">Data points</span></div>
-          <div class="pc-stat"><span class="pc-stat-n">15+</span><span class="pc-stat-l">Languages</span></div>
-          <div class="pc-stat"><span class="pc-stat-n">99.9%</span><span class="pc-stat-l">Accuracy</span></div>
+  <div id="hero-wrap">
+    <section id="hero">
+      <div>
+        <div class="hero-badge"><span class="badge-dot"></span> Africa's Language AI Company</div>
+        <h1 class="hero-h">We annotate Africa's<br>languages — <em>so AI can<br>finally understand them.</em></h1>
+        <p class="hero-p">AfriAnnotate builds the datasets, benchmarks, and annotation infrastructure that powers high-quality NLP for 20+ African languages — backed by peer-reviewed research published at ACL, EMNLP, and NAACL.</p>
+        <div class="hero-btns">
+          <a href="#datasets" class="btn btn-primary">Explore Our Datasets <svg class="arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="mailto:contact@afriannotate.com" class="btn btn-ghost">Contact Us</a>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="hero-right">
+        <div class="anno-card">
+          <div class="ac-label">Named Entity Recognition · Hausa — MasakhaNER 2.0</div>
+          <div class="ac-sentence">
+            <span class="at-tag per">PER</span><span class="at-word">Muhammadu Buhari</span>
+            <span class="at-plain">ya tafi</span>
+            <span class="at-tag loc">LOC</span><span class="at-word">Abuja</span>
+            <span class="at-plain">a yau.</span>
+          </div>
+          <div class="ac-dataset">Tagged by native Hausa annotators · <strong>EMNLP 2022</strong></div>
+        </div>
+        <div class="anno-card">
+          <div class="ac-label">Sentiment Analysis · Twitter — NaijaSenti</div>
+          <div class="ac-tweet">"Ban ji dadin wannan kaya ba."</div>
+          <span class="ac-sentiment neg"><span class="sent-dot"></span> Negative · NaijaSenti · <strong>LREC 2022</strong></span>
+        </div>
+        <div class="stat-row-mini">
+          <div class="srm-item"><span class="srm-n">50M+</span><span class="srm-l">Data points</span></div>
+          <div class="srm-item"><span class="srm-n">20+</span><span class="srm-l">Languages</span></div>
+          <div class="srm-item"><span class="srm-n">10+</span><span class="srm-l">Datasets</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <!-- TICKER -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span class="ti hi">Hausa<span class="ti-dot"></span></span><span class="ti">Yoruba<span class="ti-dot"></span></span><span class="ti">Amharic<span class="ti-dot"></span></span><span class="ti hi">Swahili<span class="ti-dot"></span></span><span class="ti">Igbo<span class="ti-dot"></span></span><span class="ti">Zulu<span class="ti-dot"></span></span><span class="ti hi">Twi<span class="ti-dot"></span></span><span class="ti">Wolof<span class="ti-dot"></span></span><span class="ti">Somali<span class="ti-dot"></span></span><span class="ti hi">Tigrinya<span class="ti-dot"></span></span><span class="ti">Shona<span class="ti-dot"></span></span><span class="ti hi">Kinyarwanda<span class="ti-dot"></span></span><span class="ti">Fula<span class="ti-dot"></span></span><span class="ti">Oromo<span class="ti-dot"></span></span><span class="ti hi">Lingala<span class="ti-dot"></span></span>
-      <span class="ti hi">Hausa<span class="ti-dot"></span></span><span class="ti">Yoruba<span class="ti-dot"></span></span><span class="ti">Amharic<span class="ti-dot"></span></span><span class="ti hi">Swahili<span class="ti-dot"></span></span><span class="ti">Igbo<span class="ti-dot"></span></span><span class="ti">Zulu<span class="ti-dot"></span></span><span class="ti hi">Twi<span class="ti-dot"></span></span><span class="ti">Wolof<span class="ti-dot"></span></span><span class="ti">Somali<span class="ti-dot"></span></span><span class="ti hi">Tigrinya<span class="ti-dot"></span></span><span class="ti">Shona<span class="ti-dot"></span></span><span class="ti hi">Kinyarwanda<span class="ti-dot"></span></span><span class="ti">Fula<span class="ti-dot"></span></span><span class="ti">Oromo<span class="ti-dot"></span></span><span class="ti hi">Lingala<span class="ti-dot"></span></span>
+      <span class="ti hi">Hausa</span><span class="ti"> · </span><span class="ti">Yoruba</span><span class="ti"> · </span><span class="ti hi">Amharic</span><span class="ti"> · </span><span class="ti">Swahili</span><span class="ti"> · </span><span class="ti hi">Igbo</span><span class="ti"> · </span><span class="ti">Zulu</span><span class="ti"> · </span><span class="ti hi">Kinyarwanda</span><span class="ti"> · </span><span class="ti">Twi</span><span class="ti"> · </span><span class="ti hi">Wolof</span><span class="ti"> · </span><span class="ti">Somali</span><span class="ti"> · </span><span class="ti hi">Tigrinya</span><span class="ti"> · </span><span class="ti">Oromo</span><span class="ti"> · </span><span class="ti hi">Shona</span><span class="ti"> · </span><span class="ti">Fula</span><span class="ti"> · </span><span class="ti hi">Lingala</span><span class="ti"> · </span><span class="ti">Nigerian Pidgin</span><span class="ti"> · </span><span class="ti hi">Algerian Arabic</span><span class="ti"> · </span>
+      <span class="ti hi">Hausa</span><span class="ti"> · </span><span class="ti">Yoruba</span><span class="ti"> · </span><span class="ti hi">Amharic</span><span class="ti"> · </span><span class="ti">Swahili</span><span class="ti"> · </span><span class="ti hi">Igbo</span><span class="ti"> · </span><span class="ti">Zulu</span><span class="ti"> · </span><span class="ti hi">Kinyarwanda</span><span class="ti"> · </span><span class="ti">Twi</span><span class="ti"> · </span><span class="ti hi">Wolof</span><span class="ti"> · </span><span class="ti">Somali</span><span class="ti"> · </span><span class="ti hi">Tigrinya</span><span class="ti"> · </span><span class="ti">Oromo</span><span class="ti"> · </span><span class="ti hi">Shona</span><span class="ti"> · </span><span class="ti">Fula</span><span class="ti"> · </span><span class="ti hi">Lingala</span><span class="ti"> · </span><span class="ti">Nigerian Pidgin</span><span class="ti"> · </span><span class="ti hi">Algerian Arabic</span><span class="ti"> · </span>
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <section id="about" class="sec">
+  <!-- DATASETS -->
+  <section id="datasets" class="sec">
     <div class="wrap">
-      <div class="about-grid">
-        <div class="reveal">
-          <div class="eyebrow">Our Mission</div>
-          <h2 class="sh">Closing the <span class="ac">language gap</span> in AI</h2>
-          <br>
-          <p>Africa is home to over 2,000 languages — yet the vast majority remain underrepresented in modern AI systems. AfriAnnotate exists to change that.</p>
-          <p>We combine native-speaker annotators with AI-assisted workflows to deliver enterprise-grade labeled datasets for NLP, speech, and multimodal AI applications.</p>
-          <div class="about-feats">
-            <span class="feat"><span class="fdot"></span>Named Entity Recognition</span>
-            <span class="feat"><span class="fdot"></span>Sentiment Analysis</span>
-            <span class="feat"><span class="fdot"></span>Translation Pairs</span>
-            <span class="feat"><span class="fdot"></span>Speech Transcription</span>
-            <span class="feat"><span class="fdot"></span>Intent Classification</span>
-            <span class="feat"><span class="fdot"></span>Machine Reading</span>
+      <div class="sec-header reveal">
+        <div class="eyebrow">Our Research</div>
+        <h2 class="sh">Datasets we've <em>built</em> &amp; published</h2>
+        <p>Every dataset below was created by our team — annotated by native speakers, peer-reviewed, and freely available on HuggingFace.</p>
+      </div>
+      <div class="datasets-grid">
+
+        <div class="ds-card reveal">
+          <div class="ds-top">
+            <div class="ds-icon o">🖼️</div>
+            <span class="ds-badge award">ACL Findings 2023</span>
+          </div>
+          <div class="ds-task">Visual Question Answering</div>
+          <div class="ds-name">HaVQA</div>
+          <div class="ds-desc">The first VQA dataset for Hausa. 6,022 English Q&amp;A pairs from Visual Genome manually translated to Hausa by native speakers — paired with 1,555 unique images.</div>
+          <hr class="ds-divider">
+          <div class="ds-meta">
+            <div class="ds-meta-item"><span class="ds-meta-label">Pairs</span><span class="ds-meta-val">6,022</span></div>
+            <div class="ds-meta-item"><span class="ds-meta-label">Images</span><span class="ds-meta-val">1,555</span></div>
+            <div class="ds-meta-item"><span class="ds-meta-label">Languages</span><span class="ds-meta-val">Hausa · EN</span></div>
+          </div>
+          <div class="ds-links">
+            <a class="ds-link" href="https://huggingface.co/datasets/HausaNLP/HausaVQA" target="_blank">HuggingFace ↗</a>
+            <a class="ds-link" href="https://aclanthology.org/2023.findings-acl.646/" target="_blank">Paper ↗</a>
           </div>
         </div>
-        <div class="reveal" style="transition-delay:0.12s">
-          <div class="about-card">
-            <p class="about-q">"Building the <span class="ac">data infrastructure</span> that gives African languages a voice in the age of AI."</p>
-            <div class="stripe"></div>
+
+        <div class="ds-card reveal">
+          <div class="ds-top">
+            <div class="ds-icon o">🗺️</div>
+            <span class="ds-badge orange">LREC 2022</span>
+          </div>
+          <div class="ds-task">Multimodal Machine Translation</div>
+          <div class="ds-name">Hausa Visual Genome</div>
+          <div class="ds-desc">The first multimodal English–Hausa MT dataset. 32,923 image-description pairs where English captions were post-edited into Hausa with reference to the source image.</div>
+          <hr class="ds-divider">
+          <div class="ds-meta">
+            <div class="ds-meta-item"><span class="ds-meta-label">Segments</span><span class="ds-meta-val">32,923</span></div>
+            <div class="ds-meta-item"><span class="ds-meta-label">Languages</span><span class="ds-meta-val">Hausa · EN</span></div>
+          </div>
+          <div class="ds-links">
+            <a class="ds-link" href="https://huggingface.co/datasets/HausaNLP/HausaVG" target="_blank">HuggingFace ↗</a>
+            <a class="ds-link" href="https://aclanthology.org/2022.lrec-1.694/" target="_blank">Paper ↗</a>
           </div>
         </div>
+
+        <div class="ds-card dark reveal">
+          <div class="ds-top">
+            <div class="ds-icon inv">🏆</div>
+            <span class="ds-badge inv">ACL 2025 · Best Paper</span>
+          </div>
+          <div class="ds-task">Emotion Recognition</div>
+          <div class="ds-name">BRIGHTER</div>
+          <div class="ds-desc">Multilabel emotion corpus — ~100,000 instances across 28 languages from 7 language families. Won ACL 2025 Best Resource Paper and ACII 2025 Best Paper.</div>
+          <hr class="ds-divider">
+          <div class="ds-meta">
+            <div class="ds-meta-item"><span class="ds-meta-label">Instances</span><span class="ds-meta-val">~100K</span></div>
+            <div class="ds-meta-item"><span class="ds-meta-label">Languages</span><span class="ds-meta-val">28</span></div>
+          </div>
+          <div class="ds-links">
+            <a class="ds-link" href="https://huggingface.co/brighter-dataset" target="_blank">HuggingFace ↗</a>
+            <a class="ds-link" href="https://aclanthology.org/2025.acl-long.436/" target="_blank">Paper ↗</a>
+          </div>
+        </div>
+
+        <div class="ds-card reveal">
+          <div class="ds-top">
+            <div class="ds-icon g">💬</div>
+            <span class="ds-badge green">EMNLP 2023</span>
+          </div>
+          <div class="ds-task">Sentiment Analysis</div>
+          <div class="ds-name">AfriSenti</div>
+          <div class="ds-desc">The largest sentiment benchmark for African languages. 110,000+ annotated tweets across 14 languages from four language families, annotated by native speakers.</div>
+          <hr class="ds-divider">
+          <div class="ds-meta">
+            <div class="ds-meta-item"><span class="ds-meta-label">Tweets</span><span class="ds-meta-val">110K+</span></div>
+            <div class="ds-meta-item"><span class="ds-meta-label">Languages</span><span class="ds-meta-val">14</span></div>
+          </div>
+          <div class="ds-links">
+            <a class="ds-link" href="https://huggingface.co/datasets/HausaNLP/AfriSenti-Twitter" target="_blank">HuggingFace ↗</a>
+            <a class="ds-link" href="https://aclanthology.org/2023.semeval-1.315/" target="_blank">Paper ↗</a>
+          </div>
+        </div>
+
+        <div class="ds-card reveal">
+          <div class="ds-top">
+            <div class="ds-icon o">🛡️</div>
+            <span class="ds-badge orange">NAACL 2025</span>
+          </div>
+          <div class="ds-task">Hate Speech Detection</div>
+          <div class="ds-name">AfriHate</div>
+          <div class="ds-desc">Multilingual hate speech collection for 15 African languages, annotated by native speakers with deep sociocultural understanding. Named IRCAI Global Top 100 AI Projects 2025.</div>
+          <hr class="ds-divider">
+          <div class="ds-meta">
+            <div class="ds-meta-item"><span class="ds-meta-label">Languages</span><span class="ds-meta-val">15</span></div>
+            <div class="ds-meta-item"><span class="ds-meta-label">License</span><span class="ds-meta-val">Apache 2.0</span></div>
+          </div>
+          <div class="ds-links">
+            <a class="ds-link" href="https://huggingface.co/datasets/afrihate/afrihate" target="_blank">HuggingFace ↗</a>
+            <a class="ds-link" href="https://aclanthology.org/2025.naacl-long.92/" target="_blank">Paper ↗</a>
+          </div>
+        </div>
+
+        <div class="ds-card reveal">
+          <div class="ds-top">
+            <div class="ds-icon g">🏷️</div>
+            <span class="ds-badge green">EMNLP 2022</span>
+          </div>
+          <div class="ds-task">Named Entity Recognition</div>
+          <div class="ds-name">MasakhaNER 2.0</div>
+          <div class="ds-desc">The largest publicly available NER dataset for African languages. 20 languages, Africa-centric transfer learning — the go-to NER benchmark for African NLP.</div>
+          <hr class="ds-divider">
+          <div class="ds-meta">
+            <div class="ds-meta-item"><span class="ds-meta-label">Languages</span><span class="ds-meta-val">20</span></div>
+            <div class="ds-meta-item"><span class="ds-meta-label">Entities</span><span class="ds-meta-val">PER · ORG · LOC</span></div>
+          </div>
+          <div class="ds-links">
+            <a class="ds-link" href="https://huggingface.co/datasets/masakhane/masakhaner2" target="_blank">HuggingFace ↗</a>
+            <a class="ds-link" href="https://aclanthology.org/2022.emnlp-main.298/" target="_blank">Paper ↗</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- SERVICES -->
-  <section id="services" class="sec">
+  <!-- TEAM -->
+  <section id="team" class="sec">
     <div class="wrap">
-      <div class="svc-top reveal">
-        <div>
-          <div class="eyebrow">What We Do</div>
-          <h2 class="sh">Our Services</h2>
-        </div>
-        <a href="mailto:contact@afriannotate.com" class="btn btn-primary" style="flex-shrink:0">
-          Get in Touch
-          <svg class="arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
+      <div class="team-header reveal">
+        <div class="eyebrow">The Team</div>
+        <h2 class="sh">Researchers behind the <em>work</em></h2>
+        <p>AfriAnnotate is founded by NLP researchers who have spent years creating, annotating, and publishing African language datasets at top venues.</p>
       </div>
-      <div class="svc-grid">
-        <div class="svc-card reveal">
-          <div class="svc-icon i1">🏷️</div>
-          <div class="svc-title">Data Labeling</div>
-          <p class="svc-desc">High-precision annotation at scale — millions of data points validated by native-speaker linguists with AI-powered quality control.</p>
-        </div>
-        <div class="svc-card reveal" style="transition-delay:0.1s">
-          <div class="svc-icon i2">⚡</div>
-          <div class="svc-title">Generative AI Workflows</div>
-          <p class="svc-desc">No-code platform to build custom AI pipelines — from raw data ingestion to model-ready outputs with African language models built in.</p>
-        </div>
-        <div class="svc-card reveal" style="transition-delay:0.2s">
-          <div class="svc-icon i3">🔌</div>
-          <div class="svc-title">API Integrations</div>
-          <p class="svc-desc">Connect your ML toolchain via our comprehensive API suite. Flexible, secure, and built for enterprise-scale deployments.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="team-grid">
 
-  <!-- STATS -->
-  <section id="stats" class="sec">
-    <div class="wrap">
-      <div class="stats-layout">
-        <div class="reveal">
-          <div class="eyebrow stats-eyebrow">Impact</div>
-          <h2 class="sh" style="color:#F8FAFC">Numbers that <span class="ac">speak</span></h2>
-          <p style="color:rgba(248,250,252,0.58);font-size:0.97rem;line-height:1.78;margin-top:1rem">Since 2024, we've been building the largest African language annotation infrastructure in the world.</p>
-          <a href="mailto:contact@afriannotate.com" class="btn btn-primary" style="margin-top:1.8rem">Book a Demo</a>
-        </div>
-        <div class="reveal" style="transition-delay:0.12s">
-          <div class="sg">
-            <div class="s-cell"><span class="s-n" data-target="50" data-suffix="M+">0</span><span class="s-l">Data points annotated</span></div>
-            <div class="s-cell"><span class="s-n" data-target="15" data-suffix="+">0</span><span class="s-l">African languages</span></div>
-            <div class="s-cell"><span class="s-n" data-target="99" data-suffix=".9%">0</span><span class="s-l">Accuracy rate</span></div>
-            <div class="s-cell"><span class="s-n" data-target="500" data-suffix="+">0</span><span class="s-l">Enterprise clients</span></div>
+        <div class="team-card reveal">
+          <div class="team-avatar">IA</div>
+          <div class="team-name">Idris Abdulmumin</div>
+          <div class="team-role">Co-Founder</div>
+          <div class="team-affil">Postdoctoral Fellow, University of Pretoria (DSFSI) · Lecturer, Ahmadu Bello University · Co-founder, HausaNLP &amp; Arewa Data Science Academy</div>
+          <div class="team-tags">
+            <span class="ttag">Hausa NLP</span>
+            <span class="ttag g">Multimodal MT</span>
+            <span class="ttag">HausaVG</span>
+            <span class="ttag g">HaVQA</span>
+          </div>
+          <div class="team-links">
+            <a class="tlink" href="https://abumafrim.github.io/" target="_blank">Web</a>
+            <a class="tlink" href="https://github.com/abumafrim" target="_blank">GitHub</a>
+            <a class="tlink" href="https://aclanthology.org/people/idris-abdulmumin/" target="_blank">ACL</a>
           </div>
         </div>
+
+        <div class="team-card reveal">
+          <div class="team-avatar">SH</div>
+          <div class="team-name">Shamsuddeen H. Muhammad</div>
+          <div class="team-role">Co-Founder</div>
+          <div class="team-affil">Google DeepMind Fellow · Advanced Research Fellow, Imperial College London · Senior Lecturer, Bayero University Kano · Co-founder, HausaNLP</div>
+          <div class="team-tags">
+            <span class="ttag">Sentiment</span>
+            <span class="ttag g">Emotion NLP</span>
+            <span class="ttag">AfriSenti</span>
+            <span class="ttag g">BRIGHTER 🏆</span>
+          </div>
+          <div class="team-links">
+            <a class="tlink" href="https://shmuhammadd.github.io/" target="_blank">Web</a>
+            <a class="tlink" href="https://github.com/shmuhammadd" target="_blank">GitHub</a>
+            <a class="tlink" href="https://aclanthology.org/people/s/shamsuddeen-hassan-muhammad/" target="_blank">ACL</a>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-avatar">IS</div>
+          <div class="team-name">Ibrahim Said Ahmad</div>
+          <div class="team-role">Co-Founder</div>
+          <div class="team-affil">Assistant Professor, University of Wisconsin-Stevens Point · Postdoctoral Fellow, Northeastern University · Co-founder, HausaNLP</div>
+          <div class="team-tags">
+            <span class="ttag">Visual QA</span>
+            <span class="ttag g">Cross-lingual</span>
+            <span class="ttag">HaVQA</span>
+            <span class="ttag g">ArtELingo-28</span>
+          </div>
+          <div class="team-links">
+            <a class="tlink" href="https://isahmadbbr.github.io" target="_blank">Web</a>
+            <a class="tlink" href="https://github.com/isahmadbbr" target="_blank">GitHub</a>
+            <a class="tlink" href="https://aclanthology.org/people/i/ibrahim-said-ahmad/" target="_blank">ACL</a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- LANGUAGES -->
-  <section id="languages" class="sec">
+  <section id="languages" class="sec" style="background:var(--bg-alt)">
     <div class="wrap">
       <div class="lang-layout">
-        <div>
-          <div class="eyebrow reveal">Coverage</div>
-          <h2 class="sh reveal" style="transition-delay:0.08s">Languages<br>We Support</h2>
-          <p class="reveal" style="color:var(--gray);font-size:0.97rem;line-height:1.78;margin-top:0.9rem;transition-delay:0.16s">From major languages like Swahili and Hausa to lower-resource languages — we're building coverage where it matters most.</p>
+        <div class="lang-left reveal">
+          <div class="eyebrow">Language Coverage</div>
+          <h2 class="sh">20+ African languages <em>and counting</em></h2>
+          <p>Our datasets span languages from West, East, Central, and Southern Africa — across Afroasiatic, Niger-Congo, Nilo-Saharan, and Khoisan families.</p>
         </div>
-        <div class="lang-grid reveal" style="transition-delay:0.1s">
-          <span class="lpill ft">Hausa</span><span class="lpill ft">Swahili</span><span class="lpill ft">Yoruba</span><span class="lpill ft">Amharic</span><span class="lpill">Igbo</span><span class="lpill">Zulu</span><span class="lpill">Twi</span><span class="lpill">Wolof</span><span class="lpill">Somali</span><span class="lpill">Tigrinya</span><span class="lpill">Shona</span><span class="lpill">Kinyarwanda</span><span class="lpill">Fula</span><span class="lpill">Oromo</span><span class="lpill">Lingala</span><span class="lpill">Bambara</span><span class="lpill">Afrikaans</span><span class="lpill more">+ more coming</span>
+        <div class="lang-grid reveal">
+          <span class="lpill ft">Hausa</span>
+          <span class="lpill ft">Swahili</span>
+          <span class="lpill ft">Amharic</span>
+          <span class="lpill ft">Yoruba</span>
+          <span class="lpill ft">Igbo</span>
+          <span class="lpill g">Kinyarwanda</span>
+          <span class="lpill">Zulu</span>
+          <span class="lpill">Tigrinya</span>
+          <span class="lpill g">Wolof</span>
+          <span class="lpill">Twi</span>
+          <span class="lpill">Somali</span>
+          <span class="lpill g">Oromo</span>
+          <span class="lpill">Shona</span>
+          <span class="lpill">Fula</span>
+          <span class="lpill g">Lingala</span>
+          <span class="lpill">Nigerian Pidgin</span>
+          <span class="lpill">Algerian Arabic</span>
+          <span class="lpill">Moroccan Arabic</span>
+          <span class="lpill g">isiXhosa</span>
+          <span class="lpill">Afrikaans</span>
+          <span class="lpill more">+ more</span>
         </div>
       </div>
     </div>
@@ -660,17 +533,14 @@
   <section id="cta" class="sec">
     <div class="wrap">
       <div class="cta-inner reveal">
-        <div class="eyebrow cta-eyebrow">Get Involved</div>
-        <h2 class="cta-h">Ready to build AI that<br><span class="ac">speaks Africa?</span></h2>
-        <p class="cta-p">Whether you're an NLP researcher, enterprise team, or developer — let's work together to bring African language data to the forefront of global AI.</p>
+        <div class="eyebrow cta-ey">Work with us</div>
+        <h2 class="cta-h">Ready to build AI that <em>speaks Africa</em>?</h2>
+        <p class="cta-p">Whether you need custom annotation, dataset licensing, benchmarking, or NLP consulting for African languages — we'd love to hear from you.</p>
         <div class="cta-btns">
-          <a href="mailto:contact@afriannotate.com" class="btn btn-primary">
-            Book a Demo
-            <svg class="arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href="https://twitter.com/afriannotate" class="btn btn-ghost-lt" target="_blank" rel="noopener">Follow @afriannotate</a>
+          <a href="mailto:contact@afriannotate.com" class="btn btn-cp">Email us <svg class="arr" viewBox="0 0 14 14"><path d="M2 7h10M8 3l4 4-4 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="https://twitter.com/afriannotate" target="_blank" class="btn btn-cg">Follow @afriannotate</a>
         </div>
-        <p class="cta-note">Or email us at <a href="mailto:contact@afriannotate.com">contact@afriannotate.com</a></p>
+        <p class="cta-note">Datasets on <a href="https://huggingface.co/HausaNLP" target="_blank">HuggingFace / HausaNLP</a></p>
       </div>
     </div>
   </section>
@@ -679,41 +549,23 @@
   <footer>
     <div class="foot">
       <a href="#" class="foot-logo">Afri<span>Annotate</span></a>
-      <span class="foot-copy">© 2025 AfriAnnotate. All rights reserved.</span>
+      <span class="foot-copy">© 2025 AfriAnnotate · contact@afriannotate.com</span>
       <ul class="foot-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="mailto:contact@afriannotate.com">Contact</a></li>
-        <li><a href="https://twitter.com/afriannotate" target="_blank" rel="noopener">Twitter</a></li>
-        <li><a href="https://afriannotate.ai" target="_blank" rel="noopener">afriannotate.ai</a></li>
+        <li><a href="#datasets">Datasets</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="https://huggingface.co/HausaNLP" target="_blank">HuggingFace</a></li>
+        <li><a href="https://twitter.com/afriannotate" target="_blank">Twitter</a></li>
       </ul>
     </div>
   </footer>
 
   <script>
-    const io = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('vis'); }), { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-    const co = new IntersectionObserver(e => {
-      e.forEach(x => {
-        if (!x.isIntersecting || x.target.dataset.done) return;
-        x.target.dataset.done = '1';
-        const target = +x.target.dataset.target, suffix = x.target.dataset.suffix || '';
-        const t0 = performance.now(), dur = 1600;
-        (function tick(now) {
-          const p = Math.min((now - t0) / dur, 1);
-          const ease = 1 - Math.pow(1 - p, 3);
-          x.target.textContent = Math.floor(ease * target) + (p === 1 ? suffix : '');
-          if (p < 1) requestAnimationFrame(tick);
-        })(performance.now());
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.s-n').forEach(el => co.observe(el));
-
     const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.style.boxShadow = scrollY > 10 ? '0 2px 12px rgba(15,23,42,0.08)' : '';
-    }, { passive: true });
+    window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 10); }, { passive: true });
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   </script>
 </body>
 </html>
